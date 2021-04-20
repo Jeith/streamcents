@@ -1,0 +1,263 @@
+@use "~inter-ui/default" with (
+  $inter-font-display: swap,
+  $inter-font-path: '~inter-ui/Inter (web)'
+);
+@use "~inter-ui/variable" with (
+  $inter-font-display: swap,
+  $inter-font-path: '~inter-ui/Inter (web)'
+);
+html {
+  font-family: "Inter", "system-ui"; }
+
+@supports (font-variation-settings: normal) {
+  html {
+    font-family: "Inter var", "system-ui"; } }
+@keyframes rainbow {
+  0% {
+    background-position: 94% 0%; }
+  50% {
+    background-position: 7% 100%; }
+  100% {
+    background-position: 94% 0%; } }
+html, body {
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  overflow-x: hidden; }
+
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  font-weight: unset; }
+
+h1, h2, h3, h4, h5, h6 {
+  display: block;
+  width: 100%; }
+
+span {
+  font: inherit; }
+
+section {
+  width: 100%;
+  padding: 60px; }
+
+.hide,
+.hidden {
+  display: none !important; }
+
+.opacity-none {
+  opacity: 0 !important; }
+
+.img-wrapper img {
+  width: 100%; }
+
+body {
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  background: linear-gradient(225deg, #0152E0, #F2EBD5, #0152E0, #F2EBD5);
+  background-size: 300% 300%;
+  box-sizing: border-box;
+  -webkit-animation: rainbow 25s ease infinite;
+  -moz-animation: rainbow 25s ease infinite;
+  animation: rainbow 25s ease infinite; }
+  body:after {
+    content: "";
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    background: #0152E0;
+    width: 100vw;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    pointer-events: none; }
+  body.load-page:after {
+    opacity: 1; }
+  body header {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    -webkit-align-items: flex-end;
+    -moz-align-items: flex-end;
+    -ms-align-items: flex-end;
+    align-items: flex-end;
+    padding: 50px;
+    position: absolute;
+    top: 0;
+    width: 100%; }
+    body header a {
+      text-decoration: none;
+      color: black; }
+    body header h4 {
+      color: black;
+      font-weight: 800;
+      font-size: 20px; }
+      body header h4:hover {
+        color: #0152E0; }
+    body header a {
+      color: #0152E0; }
+  body .hero {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+    align-items: center;
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    -ms-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+    z-index: 5;
+    padding: 50px;
+    min-height: 100vh;
+    min-width: 100vw; }
+    body .hero.autocomplete-view .section-wrapper .content-container {
+      top: 0; }
+    body .hero.autocomplete-view .section-wrapper header {
+      -webkit-transform: translateY(-100px);
+      -moz-transform: translateY(-100px);
+      -ms-transform: translateY(-100px);
+      transform: translateY(-100px); }
+    body .hero .section-wrapper {
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-direction: column;
+      -moz-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -webkit-align-items: center;
+      -moz-align-items: center;
+      -ms-align-items: center;
+      align-items: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      box-shadow: -1px 0px 9px -1px rgba(0, 0, 0, 0.5);
+      -webkit-box-shadow: -1px 0px 9px -1px rgba(0, 0, 0, 0.5);
+      -moz-box-shadow: -1px 0px 9px -1px rgba(0, 0, 0, 0.5);
+      -webkit-transition: all 0.25s ease-in-out;
+      -moz-transition: all 0.25s ease-in-out;
+      -o-transition: all 0.25s ease-in-out;
+      -ms-transition: all 0.25s ease-in-out;
+      transition: all 0.25s ease-in-out;
+      background-color: white;
+      overflow: hidden;
+      width: 85%;
+      min-height: 90%;
+      padding: 75px 75px 150px 75px;
+      margin: 50px;
+      border-radius: 25px;
+      position: absolute; }
+      body .hero .section-wrapper .content-container {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-direction: column;
+        -moz-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-align-items: center;
+        -moz-align-items: center;
+        -ms-align-items: center;
+        align-items: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-transition: all 0.25s ease-in-out;
+        -moz-transition: all 0.25s ease-in-out;
+        -o-transition: all 0.25s ease-in-out;
+        -ms-transition: all 0.25s ease-in-out;
+        transition: all 0.25s ease-in-out;
+        top: 22vh;
+        padding: 75px 75px 0;
+        position: absolute; }
+      body .hero .section-wrapper h1 {
+        padding-bottom: 30px;
+        font-weight: 700;
+        font-size: 65px;
+        text-align: center; }
+      body .hero .section-wrapper p {
+        text-align: center;
+        padding-bottom: 25px; }
+      body .hero .section-wrapper form {
+        display: -webkit-flex;
+        display: flex;
+        min-width: 75%;
+        height: 44px;
+        margin: 10px 0 0 0; }
+        body .hero .section-wrapper form.autocomplete-active input {
+          border-radius: 15px 0 0 0; }
+        body .hero .section-wrapper form.autocomplete-active button {
+          border-radius: 0 15px 0 0; }
+        body .hero .section-wrapper form input {
+          -webkit-transition: all 0.25s ease-in-out;
+          -moz-transition: all 0.25s ease-in-out;
+          -o-transition: all 0.25s ease-in-out;
+          -ms-transition: all 0.25s ease-in-out;
+          transition: all 0.25s ease-in-out;
+          height: 100%;
+          width: calc(100% - 60px);
+          outline-width: 0;
+          border: 1px solid #e2e2e2;
+          border-right: none;
+          border-radius: 15px 0 0 15px;
+          padding-left: 15px; }
+        body .hero .section-wrapper form button {
+          display: -webkit-flex;
+          display: flex;
+          -webkit-justify-content: center;
+          justify-content: center;
+          -webkit-align-items: center;
+          -moz-align-items: center;
+          -ms-align-items: center;
+          align-items: center;
+          -webkit-transition: all 0.25s ease-in-out;
+          -moz-transition: all 0.25s ease-in-out;
+          -o-transition: all 0.25s ease-in-out;
+          -ms-transition: all 0.25s ease-in-out;
+          transition: all 0.25s ease-in-out;
+          cursor: pointer;
+          background-color: white;
+          border-radius: 0 15px 15px 0;
+          border: 1px solid #e2e2e2;
+          border-left: none;
+          height: 100%;
+          width: 60px; }
+          body .hero .section-wrapper form button i {
+            color: #999; }
+      body .hero .section-wrapper .autocomplete-container {
+        width: 100%;
+        max-width: 75%;
+        height: 0; }
+        body .hero .section-wrapper .autocomplete-container a {
+          -webkit-transition: all 0.25s ease-in-out;
+          -moz-transition: all 0.25s ease-in-out;
+          -o-transition: all 0.25s ease-in-out;
+          -ms-transition: all 0.25s ease-in-out;
+          transition: all 0.25s ease-in-out;
+          cursor: pointer;
+          background-color: white;
+          color: #551A8B;
+          text-decoration: none;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          border: 1px solid #e6e6e6;
+          border-top: none;
+          padding: 10px;
+          opacity: 1; }
+
+/*# sourceMappingURL=style.css.map */

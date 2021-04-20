@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Penny Streams | How much does BLANK earn through streams?</title>
+	<% include ./partials/head.ejs %>
+</head>
+
+<body class="artist-details load-page">
+	<section class="hero">
+		<div class="section-wrapper">
+			<% include ./partials/index-header.ejs %>
+
+			<div class="content-container">
+				<h1>How much do your favorite artists earn on Spotify?</h1>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+	
+				<form id="artist-form">
+					<input id="artist" type="text" autocomplete="none" placeholder="Excepteur sint occaecat cupidatat non proident." />
+					<button id="submit" type="submit">
+						<i class="fas fa-search"></i>
+					</button>
+				</form>
+				<div class="autocomplete-container">
+					<% for (let i = 0; i < 10; i++){ %>
+						<!-- change bg background to solid color before redirect -->
+						<a id="autocomplete-<%=i%>" class="autocomplete-item opacity-none"></a>
+					<% } %>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section style="height: 100vh; width: 100vw;" id="scroll">
+
+	</section>
+
+	<script>
+		$(function(){
+			$([document.documentElement, document.body]).animate({
+				scrollTop: $("#scroll").offset().top
+			}, 750);
+
+			setTimeout(() => {
+				$(`.artist-details`).removeClass("load-page")
+			}, 750)
+
+
+			$("a").click(function(evt){
+				var link = $(this).attr("href");
+				console.log(":)")
+				setTimeout(function() {
+					window.location.href = link;
+				}, 500);
+			});
+		});
+
+		$("#artist").keyup(() => {
+			let artistName = $("#artist").val();
+						
+			if (artistName !== ""){
+				axios.get(`http://localhost:1337/api/search-artists/${artistName}`)
+				.then((response) => {
+					let artists = response.data.artists.items
+					let numOfItems = artists.length;
+					let itemsToHide = 10 - numOfItems;
+
+					console.log("artists: ", artists)
+
+					for (let i = 0; i < itemsToHide; i++){
+						$(`#autocomplete-${9 - i}`).attr("href", "").addClass("opacity-none").text("");
+					}
+					
+					$(`.hero`).addClass("autocomplete-view")
+					$(`#artist-form`).addClass("autocomplete-active")
+
+					for (let i = 0; i < numOfItems; i++){
+						$(`#autocomplete-${i}`).attr("href", artists[i].id).removeClass("opacity-none").text(artists[i].name);
+					}
+				})
+				.catch((error) => {
+					console.log(error)
+				})
+			} else {
+				$(`#artist-form`).removeClass("autocomplete-active")
+				$(`.hero`).removeClass("autocomplete-view")
+			}
+		})
+	</script>
+
+	<% include ./partials/footer.ejs %>
+</body>

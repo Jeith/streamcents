@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Penny Streams | How much do your favorite artists earn?</title>
+	<% include ./partials/head.ejs %>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body class="home" id="home">
+	<section class="hero">
+		<div class="section-wrapper">
+			<% include ./partials/index-header.ejs %>
+
+			<div class="content-container">
+				<h1>How much do your favorite artists earn on Spotify?</h1>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+	
+				<form id="artist-form" autocomplete="off">
+					<input id="artist" type="text" placeholder="Excepteur sint occaecat cupidatat non proident." />
+					<button id="submit" type="submit">
+						<i class="fas fa-search"></i>
+					</button>
+				</form>
+				<div class="autocomplete-container">
+					<% for (let i = 0; i < 10; i++){ %>
+						<!-- change bg background to solid color before redirect -->
+						<a id="autocomplete-<%=i%>" class="autocomplete-item opacity-none"></a>
+					<% } %>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script>
+		let suggestionArtists = ["Miley Cyrus", "Grimes", "Ratatat", "Azealia Banks", "Taking Back Sunday", "Rick James", "Bootsy Collins", "The Garden", "Khruangbin", "Kanye West", "DMX", "M.I.A", "Kashif", "Lil Nas X", "Donna Summer", "Clario", "Scatman John", "Herbie Hancock", "The Smiths", "Diana Ross", "Björk", "Kendrick Lamar", "A$AP Rocky", "The Strokes", "Tennis", "George Benson", "Death Grips", "The Isly Brothers", "Lady Gaga", "100 gecs", "Vulfpeck", "Brokencyde", "DJ Screw", "A Tribe Called Quest", "The Avalanches"];
+
+		$(function(){
+			$("a").click(function(e){
+				e.preventDefault();
+				var link = $(this).attr("href");
+				var artistName= $(this).text();
+
+				for (let i = 0; i < 10; i++){
+					$(`#autocomplete-${9 - i}`).attr("href", "").addClass("opacity-none").text("");
+				}
+
+				$(`#artist`).val(artistName)
+				$(`#home`).addClass("load-page")
+				$(`#artist-form`).removeClass("autocomplete-active")
+				$(`.hero`).removeClass("autocomplete-view")
+
+				setTimeout(function() {
+					window.location.href = link;
+				}, 750);
+			});
+		});
+
+		$("#artist").keyup(() => {
+			let artistName = $("#artist").val();
+						
+			if (artistName !== ""){
+				axios.get(`http://localhost:1337/api/search-artists/${artistName}`)
+				.then((response) => {
+					let artists = response.data.artists.items
+					let numOfItems = artists.length;
+					let itemsToHide = 10 - numOfItems;
+
+					console.log("artists: ", artists)
+
+					for (let i = 0; i < itemsToHide; i++){
+						$(`#autocomplete-${9 - i}`).attr("href", "").addClass("opacity-none").text("");
+					}
+					
+					$(`.hero`).addClass("autocomplete-view")
+					$(`#artist-form`).addClass("autocomplete-active")
+
+					for (let i = 0; i < numOfItems; i++){
+						$(`#autocomplete-${i}`).attr("href", artists[i].id).removeClass("opacity-none").text(artists[i].name);
+					}
+				})
+				.catch((error) => {
+					console.log(error)
+				})
+			} else {
+				for (let i = 0; i < 10; i++){
+					$(`#autocomplete-${9 - i}`).attr("href", "").addClass("opacity-none").text("");
+				}
+
+				$(`#artist-form`).removeClass("autocomplete-active")
+				$(`.hero`).removeClass("autocomplete-view")
+			}
+		})
+		$("#jeith").click(() => {
+			$("#home").toggleClass("dark-mode")
+		})
+	</script>
+
+	<% include ./partials/footer.ejs %>
+</body>
