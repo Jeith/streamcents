@@ -349,24 +349,145 @@ body{
     }
   }
   
-  &.artist-details{
-    .artist-summary{
+  #artist-info{
+    @include display-flex;
+    @include justify-content(center);
+    @include align-items(center);
+    @include transition(all .25s ease-in-out);
+    z-index: 5;
+    padding: 50px;
+    min-height: 100vh;
+    min-width: 100vw;
+
+    &.autocomplete-view{
+      .section-wrapper{
+        .content-container{
+          top: 0;
+        }
+        header{
+          @include transform(translateY(-100px))
+        }
+      }
+    }
+    
+    .artist-info-wrapper{
+      @include display-flex;
+      @include flex-direction(column);
+      @include align-items(center);
+      @include justify-content(center);
+      @include box-shadow(-1px 0px 9px -1px rgba(0, 0, 0, .5));
+      @include transition(all .25s ease-in-out);
+      background-color: white;
+      overflow: hidden;
+      width: 85%;
+      min-height: 90%;
+      padding: 75px 75px 150px 75px;
+      margin: 50px;
+      border-radius: 25px;
+    }
+  }
+  .tldr-section{
+    .text-container{
       h1{
 
-        .big{
+      }
+      p{
+
+      }
+    }
+    img{
+
+    }
+  }
+  .related-artist-section{
+    h4{
+    }
+    .artists-container{
+      .pager{
+        i{
+
+        }
+      }
+      .pagination-container{
+        a{
+          img{
+
+          }
+          p{
+
+          }
+        }
+      }
+    }
+  }
+  .album-section{
+    h1{
+    }
+    .album-container{
+      img{
+
+      }
+      .album-summary{
+        .album-name{
+          h4{
+
+          }
+          span{
+            
+          }
+        }
+        .song-container{
+          p{
+
+          }
+          span{
+
+          }
+        }
+      }
+    }
+  }
+  .singles-section{
+    h1{
+      
+    }
+    .singles-info{
+      .single-container{
+        .img-text-container{
+          img{
+
+          }
+          p{
+
+          }
+        }
+        span{
 
         }
       }
     }
-    .album-summary{
-      h2{
-
-      }
-    }
   }
-  &.about{
-    .about{
+  .support-artist-section{
+    h1{
 
+    }
+    p{
+
+    }
+    .merch-container{
+      .merch-item{
+        .merch-img{
+
+        }
+        .name-price-container{
+          p{
+
+          }
+          span{
+
+          }
+        }
+      }
     }
   }
 }

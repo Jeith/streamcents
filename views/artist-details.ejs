@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Penny Streams | How much does BLANK earn through streams?</title>
+	<title>Penny Streams | How much does <%= data.info.name %> earn through streams?</title>
 	<% include ./partials/head.ejs %>
 </head>
 
@@ -29,14 +29,147 @@
 			</div>
 		</div>
 	</section>
-	<section style="height: 100vh; width: 100vw;" id="scroll">
+	<div id="artist-info">
+		<div class="artist-info-wrapper">
+			<section class="tldr-section">
+				<div class="text-container">
+					<h1><%= data.info.name %></h1>
+					<p>has earned an estimated $<%= data.releases.minAmountOfEarnings.toLocaleString() %> - $<%= data.releases.maxAmountOfEarnings.toLocaleString() %> on Spotify through the releases of <%= data.releases.albums.length %> albums and <%= data.releases.singles.length %> singles.</p>
+				</div>
+				<img src="https://i.scdn.co/image/ab6772690000bac3f86656fa500cab842b3c5228" alt="artist-img"/>
+			</section>
+			<section class="related-artist-section">
+				<h4>Related Artists</h4>
 
-	</section>
+				<div class="artists-container">
+					<div class="pager" id="page-back">
+						<i class="fas fa-chevron-left"></i>
+					</div>
+					<% for (let i = 0; i < 4; i++){ %>
+						<div class="<%= i === 0 ? 'pagination-container' : 'pagination-container hidden' %>" id="page-<%= i + 1 %>">
+							<% for (let j = 0 + (i * 5); j < 5 + (i * 5); j++){ %>
+								<a href="/<%= data.related_artists.artists[j].uri.split('spotify:artist:').join('') %>">
+									<img src="<%= data.related_artists.artists[j].portraits[0].uri %>" alt="A portrait of <%= data.related_artists.artists[j].name %>." />
+									<p><%= data.related_artists.artists[j].name %></p>
+								</a>
+							<% } %>
+						</div>
+					<% } %>
+					<div class="pager" id="page-forward">
+						<i class="fas fa-chevron-right"></i>
+					</div>
+				</div>
+			</section>
+			<section class="album-section">
+				<h1>Earnings per Album</h1>
+
+				<% for (let i = 0; i < data.releases.albums.releases.length; i++){ %>
+					<div class="album-container">
+						<img src="<%= data.releases.albums.releases[i].cover.uri %>" alt="album cover"/>
+
+						<div class="album-summary">
+							<div class="album-name">
+								<h4><%= data.releases.albums.releases[i].name %></h4>
+								<span>7 songs</span>
+							</div>
+							<% for (let j = 0; j < data.releases.albums.releases[i].discs.length; j++){ %>
+								<% for (let x = 0; x < data.releases.albums.releases[i].discs[j].tracks.length; x++){ %>
+									<div class="song-container">
+										<p><%= data.releases.albums.releases[i].discs[j].tracks[x].name %></p>
+										<span>$<%= (data.releases.albums.releases[i].discs[j].tracks[x].playcount * .0032).toLocaleString('en-US', {maximumFractionDigits:2}) %> - $<%= (data.releases.albums.releases[i].discs[j].tracks[x].playcount * .005).toLocaleString('en-US', {maximumFractionDigits:2}) %></span>
+									</div>
+								<% } %>
+							<% } %>
+							<div class="total-amount">
+								<p>Total Earned:</p>
+								<span>$<%= (data.releases.albums.releases[i].totalStreams * .0032).toLocaleString('en-US', {maximumFractionDigits:2}) %> - $<%= (data.releases.albums.releases[i].totalStreams * .005).toLocaleString('en-US', {maximumFractionDigits:2}) %> </span>
+							</div>
+						</div>
+					</div>
+				<% } %>
+			</section>
+
+			<section class="singles-section">
+				<h1>Earnings per Single</h1>
+
+				<div class="singles-info">
+					<div class="single-conatiner">
+						<div class="img-text-container">
+							<img src="" alt="album cover"/>
+							<p>Time Limit</p>
+						</div>	
+						<span>$694.13 - $1388.26</span>
+					</div>
+					<div class="single-conatiner">
+						<div class="img-text-container">
+							<img src="" alt="album cover"/>
+							<p>Time Limit</p>
+						</div>	
+						<span>$694.13 - $1388.26</span>
+					</div>
+					<div class="single-conatiner">
+						<div class="img-text-container">
+							<img src="" alt="album cover"/>
+							<p>Time Limit</p>
+						</div>	
+						<span>$694.13 - $1388.26</span>
+					</div>
+					<div class="single-conatiner">
+						<div class="img-text-container">
+							<img src="" alt="album cover"/>
+							<p>Time Limit</p>
+						</div>	
+						<span>$694.13 - $1388.26</span>
+					</div>
+					<div class="single-container total">
+						<p>Total:</p>
+						<span>$6388.26 - $12.6k</span>
+					</div>
+				</div>
+			</section>
+			<section class="support-artist-section">
+				<h1>Support Your Favorite Artists</h1>
+				<p>Most artists don't receive 100% of their earnings from their label and groups have to split the earning between eachother. Consider buying their merch!</p>
+
+				<div class="merch-container">
+					<div class="merch-item">
+						<img class="merch-img" alt="merch photo" />
+						<div class="name-price-container">
+							<p>This Is Where We Fall Graphic Novel (Soundtrack by Mitski)</p>
+							<span>$19.99</span>
+						</div>
+					</div>
+					<div class="merch-item">
+						<img class="merch-img" alt="merch photo" />
+						<div class="name-price-container">
+							<p>This Is Where We Fall Graphic Novel (Soundtrack by Mitski)</p>
+							<span>$19.99</span>
+						</div>
+					</div>
+					<div class="merch-item">
+						<img class="merch-img" alt="merch photo" />
+						<div class="name-price-container">
+							<p>This Is Where We Fall Graphic Novel (Soundtrack by Mitski)</p>
+							<span>$19.99</span>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
 
 	<script>
+		let data = <%-JSON.stringify(data)%>;
+
+		console.log(data);
+
+		function kFormatter(num) {
+			return Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'k' : Math.sign(num)*Math.abs(num)
+		}
+		
 		$(function(){
 			$([document.documentElement, document.body]).animate({
-				scrollTop: $("#scroll").offset().top
+				scrollTop: $("#artist-info").offset().top
 			}, 750);
 
 			setTimeout(() => {

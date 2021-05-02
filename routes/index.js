@@ -8,23 +8,31 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/favicon.ico', (req,res)=>{
-  return 'your faveicon'
+  return './'
  })
 
 /* GET artist details page. */
 router.get('/:artistId', function(req, res, next) {
   let artistId = req.params.artistId;
 
-  console.log("artistId1", artistId)
+  // axios.get(`http://localhost:1337/api/get-artist/${artistId}`)
+  // .then((response) => {
+  //   console.log("response: ", response.data.response)
 
-  axios.get(`http://localhost:1337/api/get-artist/${artistId}`)
-  .then((response) => {
-    console.log("response: ", response.data)
-    res.render('artist-details');
-  })
-  .catch((error) => {
-    res.render('index');
-  })
+    axios.get(`http://localhost:1337/api/get-artist-info/${artistId}`)
+    .then((playcountResponse) => {
+      let data = playcountResponse.data;
+      data.biography = null;
+
+      res.render('artist-details', {data});
+    })
+    .catch((error) => {
+      res.render('index');
+    })
+  // })
+  // .catch((error) => {
+  //   res.render('index');
+  // })
 });
 
 module.exports = router;
