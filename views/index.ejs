@@ -3,7 +3,6 @@
 <head>
 	<title>Penny Streams | How much do your favorite artists earn?</title>
 	<% include ./partials/head.ejs %>
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 
 <body class="home" id="home">
@@ -44,12 +43,16 @@
 					$(`#autocomplete-${9 - i}`).attr("href", "").addClass("opacity-none").text("");
 				}
 
+				console.log('here!!')
 				$(`#artist`).val(artistName)
 				$(`#home`).addClass("load-page")
 				$(`#artist-form`).removeClass("autocomplete-active")
 				$(`.hero`).removeClass("autocomplete-view")
 
-				setTimeout(function() {
+				console.log("link: ", link)
+
+				setTimeout(() => {
+					console.log("???")
 					window.location.href = link;
 				}, 750);
 			});
@@ -75,7 +78,7 @@
 					$(`#artist-form`).addClass("autocomplete-active")
 
 					for (let i = 0; i < numOfItems; i++){
-						$(`#autocomplete-${i}`).attr("href", artists[i].id).removeClass("opacity-none").text(artists[i].name);
+						$(`#autocomplete-${i}`).attr("href", `/${artists[i].id}`).removeClass("opacity-none").text(artists[i].name);
 					}
 				})
 				.catch((error) => {
@@ -83,15 +86,12 @@
 				})
 			} else {
 				for (let i = 0; i < 10; i++){
-					$(`#autocomplete-${9 - i}`).attr("href", "").addClass("opacity-none").text("");
+					$(`#autocomplete-${9 - i}`).attr("href", "#").addClass("opacity-none").text("");
 				}
 
 				$(`#artist-form`).removeClass("autocomplete-active")
 				$(`.hero`).removeClass("autocomplete-view")
 			}
-		})
-		$("#jeith").click(() => {
-			$("#home").toggleClass("dark-mode")
 		})
 	</script>
 

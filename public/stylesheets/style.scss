@@ -145,12 +145,17 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
   width: 100%;
 }
+h2{ 
+  font-size: 45px;
+  font-weight: 600;
+  text-align: center;
+  padding-bottom: 30px;
+}
 span {
   font: inherit;
 }
 section {
   width: 100%;
-  padding: 60px;
 }
 .hide,
 .hidden {
@@ -164,15 +169,18 @@ section {
     width: 100%;
   }
 }
+strong{
+  font-weight: 600;
+}
 
 body{
   @include transition(all .5s ease-in-out);
-  background: linear-gradient(225deg, $light-blue, $dark-blue, $light-blue, $dark-blue);
+  background: linear-gradient(225deg, #ff0000, #ffff00, #008000, #0000ff);
   background-size: 300% 300%;
   box-sizing: border-box;
-  -webkit-animation: rainbow 25s ease infinite;
-  -moz-animation: rainbow 25s ease infinite;
-  animation: rainbow 25s ease infinite;
+  -webkit-animation: rainbow 20s ease infinite;
+  -moz-animation: rainbow 20s ease infinite;
+  animation: rainbow 20s ease infinite;
 
   &:after{
     content: "";
@@ -387,12 +395,17 @@ body{
     }
   }
   .tldr-section{
+    @include display-flex;
+    @include align-items(center);
+    min-height: calc(100vh - 160px);
+    padding-bottom: 75px;
+
     .text-container{
       h1{
-
+        font-size: 100px;
       }
       p{
-
+        font-size: 4vw;
       }
     }
     img{
@@ -400,55 +413,140 @@ body{
     }
   }
   .related-artist-section{
-    h4{
+    padding-bottom: 120px;
+
+    h2{
     }
     .artists-container{
+      @include display-flex;
+      @include align-items(center);
+      border-radius: 25px;
+      width: 100%;
+
       .pager{
+        @include display-flex;
+        @include align-items(center);
+        @include justify-content(flex-end);
+        cursor: pointer;
+        width: 30px;
+        height: 100%;
+
+        &:first-of-type{
+          @include justify-content(flex-start);
+        }
+
         i{
 
         }
       }
       .pagination-container{
-        a{
-          img{
+        @include display-flex;
+        width: 100%;
 
+        a{
+          width: 20%;
+          padding-left: 25px;
+          text-decoration: none;
+
+          &:first-of-type{
+            padding-left: 0px;
+            img{
+              width: calc(100% - 20px);
+            }
+          }
+          div{
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            background-size: cover !important;
           }
           p{
-
+            text-align: center;
+            padding-top: 5px;
+            color: black;
           }
         }
       }
     }
   }
   .album-section{
-    h1{
+    border-radius: 15px;
+    padding-bottom: 50px;
+    
+    h2{
     }
     .album-container{
+      @include display-flex;
+      padding-bottom: 30px;
+
       img{
-
+        height: 300px;
+        width: 300px;
       }
-      .album-summary{
-        .album-name{
-          h4{
+    }
+  }
+  .album-summary{
+    @include box-shadow(-1px 0px 9px -1px rgba(0, 0, 0, .2));
+    padding: 12px 10px 0px;
+    width: calc(100% - 325px);
+    margin-left: 25px;
+    border-radius: 5px;
 
-          }
-          span{
-            
-          }
+    &.singles{
+      width: 100%;
+      margin-left: 0px;
+    }
+
+    .album-name{
+      @include display-flex;
+      @include justify-content(space-between);
+      @include align-items(flex-end);
+      border-bottom: 1px solid #cccccc;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+
+      h4{
+        width: unset;
+        font-size: 30px;
+        font-weight: 600;
+      }
+      span{
+        color: #777;
+      }
+    }
+    .song-container{
+      @include display-flex;
+      @include justify-content(space-between);
+      padding-bottom: 5px;
+      margin-bottom: 5px;
+      border-bottom: 1px solid #ddd;
+      color: #333;
+
+      &:last-of-type{
+        border-bottom: none;
+      }
+
+      .img-text-container{
+        @include display-flex;
+        @include align-items(center);
+
+        img{
+          width: 50px;
+          border-radius: 3px;
+          padding-right: 10px;
         }
-        .song-container{
-          p{
+      }
+      p{
+        font-weight: 600;
+      }
+      span{
 
-          }
-          span{
-
-          }
-        }
       }
     }
   }
   .singles-section{
-    h1{
+    padding-bottom: 75px;
+    h2{
       
     }
     .singles-info{
@@ -472,19 +570,23 @@ body{
 
     }
     p{
-
+      text-align: center;
+      padding-bottom: 20px;
     }
     .merch-container{
-      .merch-item{
-        .merch-img{
+      @include display-flex;
 
+      .merch-item{
+        
+
+        .merch-img{
+          width: 100%;
         }
         .name-price-container{
+          @include display-flex;
           p{
-
           }
           span{
-
           }
         }
       }

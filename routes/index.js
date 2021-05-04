@@ -14,6 +14,7 @@ router.get('/favicon.ico', (req,res)=>{
 /* GET artist details page. */
 router.get('/:artistId', function(req, res, next) {
   let artistId = req.params.artistId;
+  console.log("here 1")
 
   // axios.get(`http://localhost:1337/api/get-artist/${artistId}`)
   // .then((response) => {
@@ -23,6 +24,9 @@ router.get('/:artistId', function(req, res, next) {
     .then((playcountResponse) => {
       let data = playcountResponse.data;
       data.biography = null;
+
+      console.log("here 2")
+
 
       res.render('artist-details', {data});
     })
