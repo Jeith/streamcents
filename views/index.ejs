@@ -22,7 +22,7 @@
 				</form>
 				<div class="autocomplete-container">
 					<% for (let i = 0; i < 10; i++){ %>
-						<!-- change bg background to solid color before redirect -->
+						<!-- change bg background to solid black before redirect -->
 						<a id="autocomplete-<%=i%>" class="autocomplete-item opacity-none"></a>
 					<% } %>
 				</div>
@@ -34,7 +34,7 @@
 		let suggestionArtists = ["Miley Cyrus", "Grimes", "Ratatat", "Azealia Banks", "Taking Back Sunday", "Rick James", "Bootsy Collins", "Khruangbin", "M.I.A", "Lil Nas X", "Donna Summer", "Clario", "Scatman John", "Herbie Hancock", "The Smiths", "Diana Ross", "Björk", "Kendrick Lamar", "George Benson", "The Isly Brothers", "Lady Gaga", "100 gecs", "Vulfpeck", "Brokencyde", "DJ Screw", "A Tribe Called Quest", "The Avalanches"];
 
 		$(function(){
-			$("a").click(function(e){
+			$(".autocomplete-item").click(function(e){
 				e.preventDefault();
 				var link = $(this).attr("href");
 				var artistName= $(this).text();

@@ -76,8 +76,12 @@ router.get('/get-artist/:artistId', function(req, res, next) {
 router.get('/get-artist-info/:artistId', function(req, res, next) {
     let artistId = req.params.artistId;
 
+    console.log(":)")
+
     axios.get(`https://api.t4ils.dev/artistInfo?artistid=${artistId}`)
     .then((response) => {
+        console.log(response)
+
         let artistData = response.data.data;
         let albumReleases = artistData.releases.albums.releases;
         let singleReleases = artistData.releases.singles.releases;
@@ -145,10 +149,10 @@ router.get('/get-artist-info/:artistId', function(req, res, next) {
         }
 
         console.log(":)")
-        const minAmountOfEarnings = (totalNumberOfStreams * 0.0032).toLocaleString('en-US', {maximumFractionDigits:0});
+        const minAmountOfEarnings = (totalNumberOfStreams * 0.003).toLocaleString('en-US', {maximumFractionDigits:0});
         const maxAmountOfEarnings = (totalNumberOfStreams * 0.005).toLocaleString('en-US', {maximumFractionDigits:0});
 
-        const minAmountOfEarningsFromSingles = (totalNumberOfStreamsFromSingles * 0.0032).toLocaleString('en-US', {maximumFractionDigits:0});
+        const minAmountOfEarningsFromSingles = (totalNumberOfStreamsFromSingles * 0.003).toLocaleString('en-US', {maximumFractionDigits:0});
         const maxAmountOfEarningsFromSingles = (totalNumberOfStreamsFromSingles * 0.005).toLocaleString('en-US', {maximumFractionDigits:0});
 
         artistData.releases.minAmountOfEarnings = minAmountOfEarnings;
