@@ -768,7 +768,15 @@ body{
     }
   }
 }
-
+.credit{
+  span{
+    a{
+      text-decoration: none;
+      font-size: 25px;
+      font-weight: 700;
+    }
+  }
+}
 
 @media all and (max-width: 1279px) {
   body{
