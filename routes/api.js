@@ -76,8 +76,6 @@ router.get('/get-artist/:artistId', function(req, res, next) {
 router.get('/get-artist-info/:artistId', function(req, res, next) {
     let artistId = req.params.artistId;
 
-    console.log(":)")
-
     axios.get(`https://api.t4ils.dev/artistInfo?artistid=${artistId}`)
     .then((response) => {
         console.log(response)
@@ -87,6 +85,7 @@ router.get('/get-artist-info/:artistId', function(req, res, next) {
         let singleReleases = artistData.releases.singles.releases;
         let totalNumberOfStreams = 0;
         let totalNumberOfStreamsFromSingles = 0;
+        let missingAlbums = [];
 
         console.log("loading...")
         console.log("albumReleases: ", albumReleases)
@@ -105,15 +104,17 @@ router.get('/get-artist-info/:artistId', function(req, res, next) {
                     totalAlbumStreams += totalDiscStreams;
                     totalSongs += discs[j].tracks.length;
                 }
+                if (totalSongs === 0){
+                    missingAlbums.push(albumReleases[i].name);
+                }
                 artistData.releases.albums.releases[i].totalStreams = totalAlbumStreams;
                 artistData.releases.albums.releases[i].totalSongs = totalSongs;
                 totalNumberOfStreams += totalAlbumStreams;
             }
+            artistData.releases.albums.missingAlbums = missingAlbums;
         } else {
             artistData.releases.albums.releases = []
         }
-
-        console.log(":)")
 
         if (singleReleases !== undefined){
             for (let i = 0; i < singleReleases.length; i++){
@@ -158,6 +159,7 @@ router.get('/get-artist-info/:artistId', function(req, res, next) {
         artistData.releases.minAmountOfEarnings = minAmountOfEarnings;
         artistData.releases.maxAmountOfEarnings = maxAmountOfEarnings;
 
+        artistData.releases.singles.totalSingleStreams = totalNumberOfStreamsFromSingles.toLocaleString('en-US', {maximumFractionDigits:0});
         artistData.releases.singles.minAmountOfEarnings = minAmountOfEarningsFromSingles;
         artistData.releases.singles.maxAmountOfEarnings = maxAmountOfEarningsFromSingles;
         

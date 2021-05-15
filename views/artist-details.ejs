@@ -6,37 +6,27 @@
 </head>
 
 <body class="artist-details load-page">
-	<section class="hero">
-		<div class="section-wrapper">
-			<% include ./partials/index-header.ejs %>
+	<% include ./partials/search-section.ejs %>
 
-			<div class="content-container">
-				<h1>How much do your favorite artists earn on Spotify?</h1>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-	
-				<form id="artist-form">
-					<input id="artist" type="text" autocomplete="off" placeholder="Excepteur sint occaecat cupidatat non proident." />
-					<button id="submit" type="submit">
-						<i class="fas fa-search"></i>
-					</button>
-				</form>
-				<div class="autocomplete-container">
-					<% for (let i = 0; i < 10; i++){ %>
-						<!-- change bg background to solid color before redirect -->
-						<a id="autocomplete-<%=i%>" class="autocomplete-item opacity-none"></a>
-					<% } %>
-				</div>
-			</div>
-		</div>
-	</section>
 	<div id="artist-info">
 		<div class="artist-info-wrapper">
 			<section class="tldr-section">
-				<div class="text-container">
+				<div class="<%= Object.keys(data.gallery).length === 0 ? 'text-container full-width' : 'text-container' %>">
 					<h1><%= data.info.name %></h1>
-					<p>has earned an estimated <strong>$<%= data.releases.minAmountOfEarnings %></strong> - <strong>$<%= data.releases.maxAmountOfEarnings %></strong> on Spotify through the releases of X albums and X singles.*</p>
+					<p>has earned an estimated <strong>$<%= data.releases.minAmountOfEarnings %></strong> - <strong>$<%= data.releases.maxAmountOfEarnings %></strong> on Spotify through the releases of <%= Object.keys(data.releases.albums).length !== 0 ? `${data.releases.albums.releases.length} albums` : "" %><%= Object.keys(data.releases.albums).length !== 0 && Object.keys(data.releases.singles).length !== 0 ? " and " : "." %><%= Object.keys(data.releases.singles).length !== 0 ? `${data.releases.singles.releases.length} singles.` : "" %>*</p>
+					<p class="disclaimer">*This number is under reported due to missing data for albums 
+						<% for (let i = 0; i < data.releases.albums.missingAlbums.length; i++){ %>
+							<span><%= data.releases.albums.missingAlbums[i] %>,</span>
+						<% } %>
+					</p>
 				</div>
-				<!-- <img src="https://i.scdn.co/image/ab6772690000bac3f86656fa500cab842b3c5228" alt="artist-img"/> -->
+				<% if (Object.keys(data.gallery).length !== 0){ %>
+					<div class="<%= data.gallery.images.length > 1 ? 'img-container multiple-imgs' : 'img-container' %>" id="artist-carousel">
+						<% for (let i = 0; i < data.gallery.images.length; i++){ %>
+							<img src="<%= data.gallery.images[i].uri %>" id="img-<%=i%>" class="<%= i === 0 ? 'artist-img' : 'artist-img hidden' %>" alt="This is a photo of <%= data.info.name %>."/>
+						<% } %>
+					</div>
+				<% } %>
 			</section>
 
 			<% if (Object.keys(data.related_artists).length !== 0){ %>
@@ -52,7 +42,9 @@
 								<% for (let j = 0 + (i * 5); j < 5 + (i * 5); j++){ %>
 									<a href="/<%= data.related_artists.artists[j].uri.split('spotify:artist:').join('') %>">
 										<div class="image-conatiner img-<%=j - (i * 5 )%>">
-											<div class="related-artist-image" style="background:url(<%= data.related_artists.artists[j].portraits[0].uri %>) 50% 50% no-repeat" alt="A portrait of <%= data.related_artists.artists[j].name %>."></div>
+											<% if (data.related_artists.artists[j].portraits !== undefined){ %>
+												<div class="related-artist-image" style="background:url(<%= data.related_artists.artists[j].portraits[0].uri %>) 50% 50% no-repeat" alt="A portrait of <%= data.related_artists.artists[j].name %>."></div>
+											<% } %>
 										</div>
 										<p><%= data.related_artists.artists[j].name %></p>
 									</a>
@@ -71,31 +63,35 @@
 					<h2>Earnings per Album</h2>
 
 					<% for (let i = 0; i < data.releases.albums.releases.length; i++){ %>
-						<div class="album-container">
-							<div class="img-container album-<%=i%>">
-								<img src="<%= data.releases.albums.releases[i].cover.uri %>" alt="album cover"/>
-							</div>
-
-							<div class="album-summary">
-								<div class="album-name">
-									<h4><%= data.releases.albums.releases[i].name %></h4>
-									<span>7 songs</span>
-								</div>
-								<% for (let j = 0; j < data.releases.albums.releases[i].discs.length; j++){ %>
-									<% for (let x = 0; x < data.releases.albums.releases[i].discs[j].tracks.length; x++){ %>
-										<div class="song-container">
-											<p><%= data.releases.albums.releases[i].discs[j].tracks[x].name %></p>
-											<span>$<%= (data.releases.albums.releases[i].discs[j].tracks[x].playcount * .003).toLocaleString('en-US', {maximumFractionDigits:0}) %> - $<%= (data.releases.albums.releases[i].discs[j].tracks[x].playcount * .005).toLocaleString('en-US', {maximumFractionDigits:0}) %> <span class="amt-of-streams">(<%= data.releases.albums.releases[i].discs[j].tracks[x].playcount.toLocaleString('en-US', {maximumFractionDigits:0}) %> streams)<span></span>
-										</div>
+						<% if (data.releases.albums.releases[i].totalSongs !== 0){ %>
+							<div class="album-container">
+								<div class="img-container album-<%=i%>">
+									<% if (data.releases.albums.releases[i].cover !== undefined){ %>
+										<img src="<%= data.releases.albums.releases[i].cover.uri %>" alt="album cover"/>
 									<% } %>
-								<% } %>
-								<div class="song-container">
-									<p>Total Earned:</p>
-									<span>$<%= (data.releases.albums.releases[i].totalStreams * .003).toLocaleString('en-US', {maximumFractionDigits:0}) %> - $<%= (data.releases.albums.releases[i].totalStreams * .005).toLocaleString('en-US', {maximumFractionDigits:0}) %> </span>
+								</div>
+
+								<div class="album-summary">
+									<div class="album-name">
+										<h4><%= data.releases.albums.releases[i].name %></h4>
+										<span><%= data.releases.albums.releases[i].totalSongs %> songs</span>
+									</div>
+									<% for (let j = 0; j < data.releases.albums.releases[i].discs.length; j++){ %>
+										<% for (let x = 0; x < data.releases.albums.releases[i].discs[j].tracks.length; x++){ %>
+											<div class="song-container">
+												<p><%= data.releases.albums.releases[i].discs[j].tracks[x].name %></p>
+												<span>$<%= (data.releases.albums.releases[i].discs[j].tracks[x].playcount * .003).toLocaleString('en-US', {maximumFractionDigits:0}) %> - $<%= (data.releases.albums.releases[i].discs[j].tracks[x].playcount * .005).toLocaleString('en-US', {maximumFractionDigits:0}) %> <span class="amt-of-streams">(<%= data.releases.albums.releases[i].discs[j].tracks[x].playcount.toLocaleString('en-US', {maximumFractionDigits:0}) %> streams)<span></span>
+											</div>
+										<% } %>
+									<% } %>
+									<div class="song-container total">
+										<p>Total Earned:</p>
+										<span>$<%= (data.releases.albums.releases[i].totalStreams * .003).toLocaleString('en-US', {maximumFractionDigits:0}) %> - $<%= (data.releases.albums.releases[i].totalStreams * .005).toLocaleString('en-US', {maximumFractionDigits:0}) %> <span class="amt-of-streams">(<%= data.releases.albums.releases[i].totalStreams.toLocaleString('en-US', {maximumFractionDigits:0}) %> streams)</span></span>
+									</div>
 								</div>
 							</div>
-						</div>
 						<% } %>
+					<% } %>
 				</section>
 			<% } %>
 
@@ -112,14 +108,14 @@
 											<img src="<%= data.releases.singles.releases[i].cover.uri %>" alt="album cover"/>
 											<p><%= data.releases.singles.releases[i].discs[j].tracks[x].name %></p>
 										</div>	
-										<span>$<%= (data.releases.singles.releases[i].discs[j].tracks[x].playcount * .0032).toLocaleString('en-US', {maximumFractionDigits:0}) %> - $<%= (data.releases.singles.releases[i].discs[j].tracks[x].playcount * .005).toLocaleString('en-US', {maximumFractionDigits:0}) %></span>
+										<span>$<%= (data.releases.singles.releases[i].discs[j].tracks[x].playcount * .0032).toLocaleString('en-US', {maximumFractionDigits:0}) %> - $<%= (data.releases.singles.releases[i].discs[j].tracks[x].playcount * .005).toLocaleString('en-US', {maximumFractionDigits:0}) %> <span class="amt-of-streams">(<%= data.releases.singles.releases[i].discs[j].tracks[x].playcount.toLocaleString('en-US', {maximumFractionDigits:0}) %> streams)<span></span>
 									</div>
 								<% } %>
 							<% } %>
 						<% } %>
-						<div class="song-container">
+						<div class="song-container total">
 							<p>Total Earned:</p>
-							<span>$<%= data.releases.singles.minAmountOfEarnings.toLocaleString('en-US', {maximumFractionDigits:0}) %> - $<%= data.releases.singles.maxAmountOfEarnings.toLocaleString('en-US', {maximumFractionDigits:0}) %> </span>
+							<span>$<%= data.releases.singles.minAmountOfEarnings.toLocaleString('en-US', {maximumFractionDigits:0}) %> - $<%= data.releases.singles.maxAmountOfEarnings.toLocaleString('en-US', {maximumFractionDigits:0}) %> <span class="amt-of-streams">(<%= data.releases.singles.totalSingleStreams %> streams)</span></span>
 						</div>
 					</div>
 				</section>
@@ -140,29 +136,10 @@
 									<span><%= data.merch.items[i].price %></span>
 								</div>
 							</a>
-						<!-- <div class="merch-item">
-							<img class="merch-img" alt="merch photo" />
-							<div class="name-price-container">
-								<p>This Is Where We Fall Graphic Novel (Soundtrack by Mitski)</p>
-								<span>$19.99</span>
-							</div>
-						</div>
-						<div class="merch-item">
-							<img class="merch-img" alt="merch photo" />
-							<div class="name-price-container">
-								<p>This Is Where We Fall Graphic Novel (Soundtrack by Mitski)</p>
-								<span>$19.99</span>
-							</div>
-						</div> -->
-
 						<% } %>
 					</div>
 				</section>
 			<% } %>
-			<div class="credit">
-				<!-- rainbow letters on jeith -->
-				<span>Designed & Developed by <a href="https://jeith.com" target="_blank" rel="noopener">Jeith</a></span>
-			</div>
 		</div>
 	</div>
 
@@ -172,27 +149,6 @@
 		function kFormatter(num) {
 			return Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'k' : Math.sign(num)*Math.abs(num)
 		}
-
-		console.log("data: ", data)
-		
-		$(function(){
-			$([document.documentElement, document.body]).animate({
-				scrollTop: $("#artist-info").offset().top
-			}, 750);
-
-			setTimeout(() => {
-				$(`.artist-details`).removeClass("load-page")
-			}, 750)
-
-
-			$("a").click(function(evt){
-				var link = $(this).attr("href");
-				console.log(":)")
-				setTimeout(function() {
-					window.location.href = link;
-				}, 500);
-			});
-		});
 
 		$("#page-forward").click((e) => {
 			let paginationContainer = document.getElementsByClassName("pagination-container");
@@ -229,38 +185,6 @@
 				paginationContainer[currentPageIndex - 1].classList.remove("hidden")
 			} else {
 				paginationContainer[paginationContainer.length - 2].classList.remove("hidden")
-			}
-		})
-
-		$("#artist").keyup(() => {
-			let artistName = $("#artist").val();
-						
-			if (artistName !== ""){
-				axios.get(`http://localhost:1337/api/search-artists/${artistName}`)
-				.then((response) => {
-					let artists = response.data.artists.items
-					let numOfItems = artists.length;
-					let itemsToHide = 10 - numOfItems;
-
-					console.log("artists: ", artists)
-
-					for (let i = 0; i < itemsToHide; i++){
-						$(`#autocomplete-${9 - i}`).attr("href", "").addClass("opacity-none").text("");
-					}
-					
-					$(`.hero`).addClass("autocomplete-view")
-					$(`#artist-form`).addClass("autocomplete-active")
-
-					for (let i = 0; i < numOfItems; i++){
-						$(`#autocomplete-${i}`).attr("href", artists[i].id).removeClass("opacity-none").text(artists[i].name);
-					}
-				})
-				.catch((error) => {
-					console.log(error)
-				})
-			} else {
-				$(`#artist-form`).removeClass("autocomplete-active")
-				$(`.hero`).removeClass("autocomplete-view")
 			}
 		})
 	</script>

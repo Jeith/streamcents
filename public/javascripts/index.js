@@ -1,39 +1,10 @@
 $(document).ready(function() {
-    let suggestionArtists = ["Miley Cyrus", "Grimes", "Ratatat", "Azealia Banks", "Taking Back Sunday", "Rick James", "Bootsy Collins", "Khruangbin", "M.I.A", "Lil Nas X", "Donna Summer", "Clario", "Scatman John", "Herbie Hancock", "The Smiths", "Diana Ross", "Björk", "Kendrick Lamar", "George Benson", "The Isly Brothers", "Lady Gaga", "100 gecs", "Vulfpeck", "Brokencyde", "DJ Screw", "A Tribe Called Quest", "The Avalanches"];
-		
+    let suggestionArtists = ["Black Eyed Peas", "RuPaul", "Drake", "Justin Bieber", "Lizzo", "Pitbull", "Elton John", "The Garden", "BTS", "Doja Cat", "Cardi B", "Jay-Z", "Taylor Smith", "Katy Perry", "Post Malone", "Mariah Carey", "Billy Eilish", "Miley Cyrus", "Kayne West", "Beyoncé", "Grimes", "Ratatat", "Azealia Banks", "Taking Back Sunday", "Bootsy Collins", "M.I.A", "Lil Nas X", "Clario", "The Smiths", "Diana Ross", "Björk", "Kendrick Lamar", "George Benson", "The Isly Brothers", "Lady Gaga", "100 gecs", "Ariana Grande", "The Jonas Brothers", "Usher", "Trey Songz", "3OH!3", "Alicia Keys", "50 Cent", "Taio Cruz"];
+    let firstArtist = suggestionArtists[Math.floor(Math.random() * suggestionArtists.length)];
+    let secondArtist = suggestionArtists.filter((artist) => (artist !== firstArtist))[Math.floor(Math.random() * suggestionArtists.filter((artist) => (artist !== firstArtist)).length)];
+
+    $("#artist").attr("placeholder", `Search any artist by name like "${firstArtist}" or "${secondArtist}".`)
     let storedVisitedRoutes = JSON.parse(localStorage.getItem("visitedRoutes"));
-
-    let visitedRoutes = {
-        lastVisitedRoute: storedVisitedRoutes === undefined ? undefined : storedVisitedRoutes.currentRoute,
-        currentRoute: window.location.pathname
-    };
-
-    localStorage.setItem("visitedRoutes", JSON.stringify(visitedRoutes));
-
-    $(function(){
-        $(".autocomplete-item").click(function(e){
-            e.preventDefault();
-            var link = $(this).attr("href");
-            var artistName= $(this).text();
-
-            for (let i = 0; i < 10; i++){
-                $(`#autocomplete-${9 - i}`).attr("href", "").addClass("opacity-none").text("");
-            }
-
-            console.log('here!!')
-            $(`#artist`).val(artistName)
-            $(`#home`).addClass("load-page")
-            $(`#artist-form`).removeClass("autocomplete-active")
-            $(`.hero`).removeClass("autocomplete-view")
-
-            console.log("link: ", link)
-
-            setTimeout(() => {
-                console.log("???")
-                window.location.href = link;
-            }, 750);
-        });
-    });
 
     $("#artist").keyup(() => {
         let artistName = $("#artist").val();
@@ -70,4 +41,78 @@ $(document).ready(function() {
             $(`.hero`).removeClass("autocomplete-view")
         }
     })
+
+    let visitedRoutes = {
+        lastVisitedRoute: storedVisitedRoutes === null ? null : storedVisitedRoutes.currentRoute,
+        currentRoute: window.location.pathname
+    };
+
+    localStorage.setItem("visitedRoutes", JSON.stringify(visitedRoutes));
+
+    $("#artist-carousel").click((e) => {
+        let imgContainer = e.target.nodeName === "IMG" ? e.target.parentNode : e.target;
+        let images = imgContainer.children;
+        let currentActiveIndex = 0;
+
+        for (let i = 0; i < images.length; i++){
+            if (!images[i].classList.contains("hidden")){
+                currentActiveIndex = i;
+            }
+        }
+
+        $(".artist-img").addClass("hidden")
+
+        if (currentActiveIndex === (images.length - 1)){
+            images[0].classList.remove("hidden");
+
+        } else {
+            images[currentActiveIndex + 1].classList.remove("hidden");
+        }
+
+
+    })
+
+    $(function(){
+        let storedVisitedRoutes = JSON.parse(localStorage.getItem("visitedRoutes"));
+
+        if (storedVisitedRoutes.currentRoute !== "/"){
+            if (storedVisitedRoutes.lastVisitedRoute === "/"){
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $("#artist-info").offset().top
+                }, 750);
+
+                setTimeout(() => {
+                    $(`.artist-details`).removeClass("load-page")
+                }, 750)
+            } else {
+                setTimeout(() => {
+                    $(`.artist-details`).removeClass("load-page")
+                }, 750)
+                window.scrollTo(0, $("#artist-info").offset().top);
+
+            }
+        }
+        $(".autocomplete-item").click(function(e){
+            e.preventDefault();
+            var link = $(this).attr("href");
+            var artistName= $(this).text();
+
+            for (let i = 0; i < 10; i++){
+                $(`#autocomplete-${9 - i}`).attr("href", "").addClass("opacity-none").text("");
+            }
+
+            console.log('here!!')
+            $(`#artist`).val(artistName)
+            $(`#home`).addClass("load-page")
+            $(`#artist-form`).removeClass("autocomplete-active")
+            $(`.hero`).removeClass("autocomplete-view")
+
+            console.log("link: ", link)
+
+            setTimeout(() => {
+                console.log("???")
+                window.location.href = link;
+            }, 750);
+        });
+    });
 });

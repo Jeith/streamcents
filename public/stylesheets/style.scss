@@ -174,13 +174,21 @@ strong{
 }
 
 body{
-  @include transition(all .5s ease-in-out);
-  background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
-  background-size: 300% 300%;
-  box-sizing: border-box;
-  -webkit-animation: rainbow 18s ease infinite;
-  -moz-animation: rainbow 18s ease infinite;
-  animation: rainbow 18s ease infinite;
+  &:before{
+    content: "";
+    @include transition(all .5s ease-in-out);
+    background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
+    background-size: 300% 300%;
+    box-sizing: border-box;
+    -webkit-animation: rainbow 18s ease infinite;
+    -moz-animation: rainbow 18s ease infinite;
+    animation: rainbow 18s ease infinite;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;  
+  }
 
   &:after{
     content: "";
@@ -401,6 +409,12 @@ body{
     padding-bottom: 75px;
 
     .text-container{
+      width: 75%;
+      padding-right: 40px;
+
+      &.full-width{
+        width: 100%;
+      }
       h1{
         font-size: 100px;
       }
@@ -408,8 +422,48 @@ body{
         font-size: 4vw;
       }
     }
-    img{
+    .img-container{
+      width: 25%;
 
+      &.multiple-imgs{
+        cursor: pointer;
+
+        &:hover{
+          &:before{
+            height: 110%;
+            width: 110%;
+            bottom: -5%;
+            right: -5%;
+            border-radius: 15px;
+          }
+  
+          img{
+            border-radius: 15px;
+          }
+        }
+      }
+      
+      &:before{
+        content: "";
+        width: 100%;
+        height: 100%;
+        @include transition(all .5s ease-in-out);
+        position: absolute;
+        bottom: -10px;
+        right: -10px;
+        background: #ff2400;
+        background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3, #dd00f3, #2b1de8, #1ddde8, #1de840, #e3e81d, #e8b71d, #e81d1d);
+        background-size: 500% 500%;
+        box-sizing: border-box;
+        -webkit-animation: rainbow 2s ease infinite;
+        -moz-animation: rainbow 2s ease infinite;
+        animation: rainbow 2s ease infinite;
+      }
+
+      img{
+        @include transition(all .5s ease-in-out);
+        width: 100%;
+      }
     }
   }
   .related-artist-section{
@@ -663,6 +717,8 @@ body{
       }
       span{
         color: #777;
+        white-space: nowrap;
+        padding-left: 5px;
       }
     }
     .song-container{
@@ -672,6 +728,10 @@ body{
       margin-bottom: 5px;
       border-bottom: 1px solid #ddd;
       color: #333;
+
+      &.total{
+        padding-top: 5px;
+      }
 
       &:last-of-type{
         border-bottom: none;

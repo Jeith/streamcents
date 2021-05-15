@@ -6,29 +6,7 @@
 </head>
 
 <body class="home" id="home">
-	<section class="hero">
-		<div class="section-wrapper">
-			<% include ./partials/index-header.ejs %>
-
-			<div class="content-container">
-				<h1>How much do your favorite artists earn on Spotify?</h1>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-	
-				<form id="artist-form" autocomplete="off">
-					<input id="artist" type="text" autocomplete="off" placeholder="Excepteur sint occaecat cupidatat non proident." />
-					<button id="submit" type="submit">
-						<i class="fas fa-search"></i>
-					</button>
-				</form>
-				<div class="autocomplete-container">
-					<% for (let i = 0; i < 10; i++){ %>
-						<!-- change bg background to solid black before redirect -->
-						<a id="autocomplete-<%=i%>" class="autocomplete-item opacity-none"></a>
-					<% } %>
-				</div>
-			</div>
-		</div>
-	</section>
+	<% include ./partials/search-section.ejs %>
 
 	<% include ./partials/footer.ejs %>
 </body>
