@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    let suggestionArtists = ["Black Eyed Peas", "RuPaul", "Drake", "Justin Bieber", "Lizzo", "Pitbull", "Elton John", "The Garden", "BTS", "Doja Cat", "Cardi B", "Jay-Z", "Taylor Smith", "Katy Perry", "Post Malone", "Mariah Carey", "Billy Eilish", "Miley Cyrus", "Kayne West", "Beyoncé", "Grimes", "Ratatat", "Azealia Banks", "Taking Back Sunday", "Bootsy Collins", "M.I.A", "Lil Nas X", "Clario", "The Smiths", "Diana Ross", "Björk", "Kendrick Lamar", "George Benson", "The Isly Brothers", "Lady Gaga", "100 gecs", "Ariana Grande", "The Jonas Brothers", "Usher", "Trey Songz", "3OH!3", "Alicia Keys", "50 Cent", "Taio Cruz"];
+    let suggestionArtists = ["Black Eyed Peas", "RuPaul", "Anamanaguchi", "Drake", "Justin Bieber", "Lizzo", "Big Time Rush", "Pitbull", "Elton John", "The Garden", "BTS", "Doja Cat", "Cardi B", "Jay-Z", "Taylor Smith", "Katy Perry", "Post Malone", "Mariah Carey", "Billy Eilish", "Miley Cyrus", "Kayne West", "Beyoncé", "Grimes", "Azealia Banks", "Taking Back Sunday", "Stevie Wonder", "M.I.A", "Lil Nas X", "Clario", "The Smiths", "Diana Ross", "Björk", "Kendrick Lamar", "George Benson", "The Isly Brothers", "Lady Gaga", "100 gecs", "Ariana Grande", "The Jonas Brothers", "Usher", "Trey Songz", "3OH!3", "Alicia Keys", "50 Cent", "Taio Cruz"];
     let firstArtist = suggestionArtists[Math.floor(Math.random() * suggestionArtists.length)];
     let secondArtist = suggestionArtists.filter((artist) => (artist !== firstArtist))[Math.floor(Math.random() * suggestionArtists.filter((artist) => (artist !== firstArtist)).length)];
 
@@ -26,7 +26,7 @@ $(document).ready(function() {
                 $(`#artist-form`).addClass("autocomplete-active")
 
                 for (let i = 0; i < numOfItems; i++){
-                    $(`#autocomplete-${i}`).attr("href", `/${artists[i].id}`).removeClass("opacity-none").text(artists[i].name);
+                    $(`#autocomplete-${i}`).attr("href", `/artist/${artists[i].id}`).removeClass("opacity-none").text(artists[i].name);
                 }
             })
             .catch((error) => {
@@ -107,12 +107,11 @@ $(document).ready(function() {
             $(`#artist-form`).removeClass("autocomplete-active")
             $(`.hero`).removeClass("autocomplete-view")
 
-            console.log("link: ", link)
-
-            setTimeout(() => {
-                console.log("???")
-                window.location.href = link;
-            }, 750);
+            console.log("???", link)
+            // window.open(link, "_self")
+            window.location.href = link;
+            // window.location.href = link;
+            // window.location.href = link;
         });
     });
 });

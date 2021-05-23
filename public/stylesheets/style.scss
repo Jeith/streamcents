@@ -1,5 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Gorditas:wght@700&display=swap');
 // ~~~~~~~~~~~~~~~~ VARS ~~~~~~~~~~~~~~~~
-$light-blue: #0152E0;
+$light-blue: #0152e0;
 $dark-blue: #F2EBD5;
 
 // ~~~~~~~~~~~~~~~~ FONTS ~~~~~~~~~~~~~~~~
@@ -206,6 +207,36 @@ body{
   &.home{
 
   }
+  &.about {
+    .hero{
+      .section-wrapper{
+        h1{
+          font-size: 55px;
+          text-align: left;
+
+          .sitename{
+            font-size: 65px;
+          }
+        }
+        p{
+          text-align: left;
+          width: 100%;
+          font-size: 17px;
+        }
+        .credit{
+          position: absolute;
+          bottom: 40px;
+
+          a{
+            // make rainbow colors
+            font-size: 25px;
+            text-decoration: none;
+            font-family: 'Gorditas';
+          }
+        }
+      }
+    }
+  }
   &.artist-details{
 
   }
@@ -238,7 +269,11 @@ body{
       }
     }
     a{
-      color: $light-blue
+      color: $light-blue;
+
+      &:hover{
+        text-decoration: underline;
+      }
     }
   }
   .hero{
@@ -409,21 +444,27 @@ body{
     padding-bottom: 75px;
 
     .text-container{
-      width: 75%;
+      width: 70%;
       padding-right: 40px;
 
       &.full-width{
         width: 100%;
       }
       h1{
-        font-size: 100px;
+        font-size: 90px;
       }
       p{
-        font-size: 4vw;
+        font-size: 50px;
+
+        &.disclaimer{
+          font-size: 14px;
+          padding-top: 20px;
+          color: #666;
+        }
       }
     }
     .img-container{
-      width: 25%;
+      width: 30%;
 
       &.multiple-imgs{
         cursor: pointer;
@@ -452,12 +493,12 @@ body{
         bottom: -10px;
         right: -10px;
         background: #ff2400;
-        background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3, #dd00f3, #2b1de8, #1ddde8, #1de840, #e3e81d, #e8b71d, #e81d1d);
+        background: linear-gradient(124deg, #ff2400, #ff2400, #ff2400, #ff2400, #1de840, #1ddde8, #2b1de8, #dd00f3, #1de840, #1de840, #1de840, #1de840, #1de840, #ff2400, #ff2400, #ff2400);
         background-size: 500% 500%;
         box-sizing: border-box;
-        -webkit-animation: rainbow 2s ease infinite;
-        -moz-animation: rainbow 2s ease infinite;
-        animation: rainbow 2s ease infinite;
+        -webkit-animation: rainbow 22s ease infinite;
+        -moz-animation: rainbow 22s ease infinite;
+        animation: rainbow 22s ease infinite;
       }
 
       img{
@@ -590,6 +631,7 @@ body{
             z-index: 1;
           }
           p{
+            height: 18px;
             text-align: center;
             padding-top: 15px;
             color: black;
@@ -719,6 +761,11 @@ body{
         color: #777;
         white-space: nowrap;
         padding-left: 5px;
+        font-size: 15px;
+
+        &.year{
+          padding-left: 10px;
+        }
       }
     }
     .song-container{
@@ -838,6 +885,27 @@ body{
   }
 }
 
+@media all and (max-width: 1320px) {
+  body{
+    .related-artist-section{
+  
+      h2{
+        
+      }
+      .artists-container{
+  
+        .pager{
+          &#page-forward{
+            right: -25px;
+          }
+          &#page-back{
+            left: -25px;
+          }
+        }
+      }
+    }
+  }
+}
 @media all and (max-width: 1279px) {
   body{
     #artist-info{
@@ -858,10 +926,172 @@ body{
   }
 }
 @media all and (max-width: 1139px) {
+  body{
+    .related-artist-section{
+  
+      h2{
+        
+      }
+      .artists-container{
+  
+        .pager{
+        }
+        .pagination-container{
+  
+          a{
+
+            .image-conatiner{
+              width: 125px;
+              height: 125px;
+  
+              &.img-1{
+                &:after{
+                }
+              }
+              &.img-2{
+                &:after{
+                }
+              }
+              &.img-3{
+                &:after{
+                }
+              }
+              &.img-4{
+                &:after{
+                }
+              }
+  
+              &:after{
+              }
+            }
+            .related-artist-image{
+            }
+            p{
+            }
+          }
+        }
+      }
+    }
+  }
 }
 @media all and (max-width: 1023px) {
+  body{
+    #artist-info{
+      .artist-info-wrapper{
+        width: 100%;
+        padding: 50px;
+      }
+    }
+    .related-artist-section{
+  
+      h2{
+        
+      }
+      .artists-container{
+  
+        .pager{
+        }
+        .pagination-container{
+  
+          a{
+
+            .image-conatiner{
+              width: 125px;
+              height: 125px;
+  
+              &.img-1{
+                &:after{
+                }
+              }
+              &.img-2{
+                &:after{
+                }
+              }
+              &.img-3{
+                &:after{
+                }
+              }
+              &.img-4{
+                &:after{
+                }
+              }
+  
+              &:after{
+              }
+            }
+            .related-artist-image{
+            }
+            p{
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // width: 100px;
+  // height: 100px;
+
 }
 @media all and (max-width: 900px) {
+  body{
+    #artist-info{
+      .artist-info-wrapper{
+        padding: 25px 50px;
+      }
+    }
+    .related-artist-section{
+  
+      h2{
+        
+      }
+      .artists-container{
+  
+        .pager{
+        }
+        .pagination-container{
+  
+          a{
+            // &#link-2{
+            //   margin-top: 100px;
+            // }
+            // &#link-4{
+            //   margin-top: 100px;
+            // }
+
+            .image-conatiner{
+              width: 100px;
+              height: 100px;
+  
+              &.img-1{
+                &:after{
+                }
+              }
+              &.img-2{
+                &:after{
+                }
+              }
+              &.img-3{
+                &:after{
+                }
+              }
+              &.img-4{
+                &:after{
+                }
+              }
+  
+              &:after{
+              }
+            }
+            .related-artist-image{
+            }
+            p{
+            }
+          }
+        }
+      }
+    }
+  }
 }
 @media all and (max-width: 767px) {
 }

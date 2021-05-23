@@ -10,15 +10,19 @@
 
 	<div id="artist-info">
 		<div class="artist-info-wrapper">
+			<% include ./partials/index-header.ejs %>
+
 			<section class="tldr-section">
 				<div class="<%= Object.keys(data.gallery).length === 0 ? 'text-container full-width' : 'text-container' %>">
 					<h1><%= data.info.name %></h1>
-					<p>has earned an estimated <strong>$<%= data.releases.minAmountOfEarnings %></strong> - <strong>$<%= data.releases.maxAmountOfEarnings %></strong> on Spotify through the releases of <%= Object.keys(data.releases.albums).length !== 0 ? `${data.releases.albums.releases.length} albums` : "" %><%= Object.keys(data.releases.albums).length !== 0 && Object.keys(data.releases.singles).length !== 0 ? " and " : "." %><%= Object.keys(data.releases.singles).length !== 0 ? `${data.releases.singles.releases.length} singles.` : "" %>*</p>
-					<p class="disclaimer">*This number is under reported due to missing data for albums 
-						<% for (let i = 0; i < data.releases.albums.missingAlbums.length; i++){ %>
-							<span><%= data.releases.albums.missingAlbums[i] %>,</span>
-						<% } %>
-					</p>
+					<p>has earned an estimated <strong>$<%= data.releases.minAmountOfEarnings %></strong> - <strong>$<%= data.releases.maxAmountOfEarnings %></strong> on Spotify through the releases of <%= Object.keys(data.releases.albums).length !== 0 ? `${data.releases.albums.releases.length} albums` : "" %><%= Object.keys(data.releases.albums).length !== 0 && Object.keys(data.releases.singles).length !== 0 ? " and " : "." %><%= Object.keys(data.releases.singles).length !== 0 ? `${data.releases.singles.releases.length} singles.` : "" %><%= data.releases.albums.missingAlbums.length !== 0 ? "*" : "" %></p>
+					<% if (data.releases.albums.missingAlbums.length !== 0){ %>
+						<p class="disclaimer">*This number is under reported due to missing data for album<%= data.releases.albums.missingAlbums.length !== 1 ? "s" : "" %> 
+							<% for (let i = 0; i < data.releases.albums.missingAlbums.length; i++){ %>
+								<span><%= i === (data.releases.albums.missingAlbums.length - 1) && i !== 0 ? 'and ' : '' %><%= data.releases.albums.missingAlbums[i] %><%= i === (data.releases.albums.missingAlbums.length - 1) ? '' : ',' %><%= i === (data.releases.albums.missingAlbums.length - 1) ? '. ' : '' %></span>
+							<% } %>
+						</p>
+					<% } %>
 				</div>
 				<% if (Object.keys(data.gallery).length !== 0){ %>
 					<div class="<%= data.gallery.images.length > 1 ? 'img-container multiple-imgs' : 'img-container' %>" id="artist-carousel">
@@ -40,14 +44,16 @@
 						<% for (let i = 0; i < 4; i++){ %>
 							<div class="<%= i === 0 ? 'pagination-container' : 'pagination-container hidden' %>" id="page-<%= i + 1 %>">
 								<% for (let j = 0 + (i * 5); j < 5 + (i * 5); j++){ %>
-									<a href="/<%= data.related_artists.artists[j].uri.split('spotify:artist:').join('') %>">
-										<div class="image-conatiner img-<%=j - (i * 5 )%>">
-											<% if (data.related_artists.artists[j].portraits !== undefined){ %>
-												<div class="related-artist-image" style="background:url(<%= data.related_artists.artists[j].portraits[0].uri %>) 50% 50% no-repeat" alt="A portrait of <%= data.related_artists.artists[j].name %>."></div>
-											<% } %>
-										</div>
-										<p><%= data.related_artists.artists[j].name %></p>
-									</a>
+									<% if (data.related_artists.artists[j] !== undefined){ %>
+										<a href="/artist/<%= data.related_artists.artists[j].uri.split('spotify:artist:').join('') %>" class="link-<%=j - (i * 5 )%>">
+											<div class="image-conatiner img-<%=j - (i * 5 )%>">
+												<% if (data.related_artists.artists[j].portraits !== undefined){ %>
+													<div class="related-artist-image" style="background:url(<%= data.related_artists.artists[j].portraits[0].uri %>) 50% 50% no-repeat" alt="A portrait of <%= data.related_artists.artists[j].name %>."></div>
+												<% } %>
+											</div>
+											<p><%= data.related_artists.artists[j].name %></p>
+										</a>
+									<% } %>
 								<% } %>
 							</div>
 						<% } %>
@@ -73,7 +79,7 @@
 
 								<div class="album-summary">
 									<div class="album-name">
-										<h4><%= data.releases.albums.releases[i].name %></h4>
+										<h4><%= data.releases.albums.releases[i].name %><span class="year"><%= data.releases.albums.releases[i].year %></span></h4>
 										<span><%= data.releases.albums.releases[i].totalSongs %> songs</span>
 									</div>
 									<% for (let j = 0; j < data.releases.albums.releases[i].discs.length; j++){ %>
@@ -95,22 +101,32 @@
 				</section>
 			<% } %>
 
-			<% if (data.releases.singles.maxAmountOfEarnings.toLocaleString('en-US', {maximumFractionDigits:0}) !== '0'){ %>
+			<% if (data.releases.singles.releases.length !== 0){ %>
 				<section class="singles-section">
 					<h2>Earnings per Single</h2>
 
 					<div class="album-summary singles">
 						<% for (let i = 0; i < data.releases.singles.releases.length; i++){ %>
-							<% for (let j = 0; j < data.releases.singles.releases[i].discs.length; j++){ %>
-								<% for (let x = 0; x < data.releases.singles.releases[i].discs[j].tracks.length; x++){ %>
-									<div class="song-container">
-										<div class="img-text-container">
-											<img src="<%= data.releases.singles.releases[i].cover.uri %>" alt="album cover"/>
-											<p><%= data.releases.singles.releases[i].discs[j].tracks[x].name %></p>
-										</div>	
-										<span>$<%= (data.releases.singles.releases[i].discs[j].tracks[x].playcount * .0032).toLocaleString('en-US', {maximumFractionDigits:0}) %> - $<%= (data.releases.singles.releases[i].discs[j].tracks[x].playcount * .005).toLocaleString('en-US', {maximumFractionDigits:0}) %> <span class="amt-of-streams">(<%= data.releases.singles.releases[i].discs[j].tracks[x].playcount.toLocaleString('en-US', {maximumFractionDigits:0}) %> streams)<span></span>
-									</div>
+							<% if (data.releases.singles.releases[i].discs.length !== 0){ %>
+								<% for (let j = 0; j < data.releases.singles.releases[i].discs.length; j++){ %>
+									<% for (let x = 0; x < data.releases.singles.releases[i].discs[j].tracks.length; x++){ %>
+										<div class="song-container">
+											<div class="img-text-container">
+												<img src="<%= data.releases.singles.releases[i].cover.uri %>" alt="album cover"/>
+												<p><%= data.releases.singles.releases[i].discs[j].tracks[x].name %></p>
+											</div>	
+											<span>$<%= (data.releases.singles.releases[i].discs[j].tracks[x].playcount * .0032).toLocaleString('en-US', {maximumFractionDigits:0}) %> - $<%= (data.releases.singles.releases[i].discs[j].tracks[x].playcount * .005).toLocaleString('en-US', {maximumFractionDigits:0}) %> <span class="amt-of-streams">(<%= data.releases.singles.releases[i].discs[j].tracks[x].playcount.toLocaleString('en-US', {maximumFractionDigits:0}) %> streams)<span></span>
+										</div>
+									<% } %>
 								<% } %>
+							<% } else { %>
+								<div class="song-container">
+									<div class="img-text-container">
+										<img src="<%= data.releases.singles.releases[i].cover.uri %>" alt="album cover"/>
+										<p><%= data.releases.singles.releases[i].name %></p>
+									</div>	
+									<span>-- <span class="amt-of-streams">(Missing data)<span></span>
+								</div>
 							<% } %>
 						<% } %>
 						<div class="song-container total">
@@ -145,6 +161,8 @@
 
 	<script>
 		let data = <%-JSON.stringify(data)%>;
+
+		console.log("data: ", data)
 
 		function kFormatter(num) {
 			return Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'k' : Math.sign(num)*Math.abs(num)
