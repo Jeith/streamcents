@@ -1,18 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Gorditas:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 // ~~~~~~~~~~~~~~~~ VARS ~~~~~~~~~~~~~~~~
 $light-blue: #0152e0;
 $dark-blue: #F2EBD5;
 
-// ~~~~~~~~~~~~~~~~ FONTS ~~~~~~~~~~~~~~~~
-@use "~inter-ui/default" with (
-  $inter-font-display: swap,
-  $inter-font-path: '~inter-ui/Inter (web)'
-);
-@use "~inter-ui/variable" with (
-  $inter-font-display: swap,
-  $inter-font-path: '~inter-ui/Inter (web)'
-);
- 
 html { font-family: "Inter", "system-ui"; }
  
 @supports (font-variation-settings: normal) {
@@ -927,6 +918,31 @@ body{
 }
 @media all and (max-width: 1139px) {
   body{
+    .hero{
+      .section-wrapper{
+  
+        .content-container{
+        }
+  
+        h1{
+          font-size: 58px;
+        }
+        p{
+        }
+        form{
+  
+          input{
+          }
+          button{
+          }
+        }
+        .autocomplete-container{
+  
+          a{
+          }
+        }
+      }
+    }
     .related-artist-section{
   
       h2{
@@ -976,6 +992,32 @@ body{
 }
 @media all and (max-width: 1023px) {
   body{
+    .hero{
+      .section-wrapper{
+        padding: 50px;
+
+        .content-container{
+        }
+  
+        h1{
+          font-size: 50px;
+        }
+        p{
+        }
+        form{
+  
+          input{
+          }
+          button{
+          }
+        }
+        .autocomplete-container{
+  
+          a{
+          }
+        }
+      }
+    }
     #artist-info{
       .artist-info-wrapper{
         width: 100%;
@@ -1035,6 +1077,31 @@ body{
 }
 @media all and (max-width: 900px) {
   body{
+    .hero{
+      .section-wrapper{
+  
+        .content-container{
+        }
+  
+        h1{
+          font-size: 40px;
+        }
+        p{
+        }
+        form{
+          min-width: 100%;
+          input{
+          }
+          button{
+          }
+        }
+        .autocomplete-container{
+  
+          a{
+          }
+        }
+      }
+    }
     #artist-info{
       .artist-info-wrapper{
         padding: 25px 50px;
@@ -1094,8 +1161,61 @@ body{
   }
 }
 @media all and (max-width: 767px) {
+  body{
+    .hero{
+      .section-wrapper{
+  
+        .content-container{
+          padding: 50px 50px 0;
+        }
+  
+        h1{
+          font-size: 40px;
+        }
+        p{
+        }
+        form{
+          input{
+          }
+          button{
+          }
+        }
+        .autocomplete-container{
+  
+          a{
+          }
+        }
+      }
+    }
+  }
 }
 @media all and (max-width: 639px) {
+  body{
+    .hero{
+      .section-wrapper{
+        width: 90%;
+        min-height: 95%;
+        .content-container{
+        }
+  
+        h1{
+        }
+        p{
+        }
+        form{
+          input{
+          }
+          button{
+          }
+        }
+        .autocomplete-container{
+  
+          a{
+          }
+        }
+      }
+    }
+  }
 }
 @media all and (max-width: 500px) {
 }

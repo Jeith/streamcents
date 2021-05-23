@@ -1,12 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Gorditas:wght@700&display=swap");
-@use "~inter-ui/default" with (
-  $inter-font-display: swap,
-  $inter-font-path: '~inter-ui/Inter (web)'
-);
-@use "~inter-ui/variable" with (
-  $inter-font-display: swap,
-  $inter-font-path: '~inter-ui/Inter (web)'
-);
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 html {
   font-family: "Inter", "system-ui"; }
 
@@ -689,10 +682,16 @@ body .support-artist-section .merch-container {
     width: 100px;
     height: 100px; } }
 @media all and (max-width: 1139px) {
+  body .hero .section-wrapper h1 {
+    font-size: 58px; }
   body .related-artist-section .artists-container .pagination-container a .image-conatiner {
     width: 125px;
     height: 125px; } }
 @media all and (max-width: 1023px) {
+  body .hero .section-wrapper {
+    padding: 50px; }
+    body .hero .section-wrapper h1 {
+      font-size: 50px; }
   body #artist-info .artist-info-wrapper {
     width: 100%;
     padding: 50px; }
@@ -700,10 +699,23 @@ body .support-artist-section .merch-container {
     width: 125px;
     height: 125px; } }
 @media all and (max-width: 900px) {
+  body .hero .section-wrapper h1 {
+    font-size: 40px; }
+  body .hero .section-wrapper form {
+    min-width: 100%; }
   body #artist-info .artist-info-wrapper {
     padding: 25px 50px; }
   body .related-artist-section .artists-container .pagination-container a .image-conatiner {
     width: 100px;
     height: 100px; } }
+@media all and (max-width: 767px) {
+  body .hero .section-wrapper .content-container {
+    padding: 50px 50px 0; }
+  body .hero .section-wrapper h1 {
+    font-size: 40px; } }
+@media all and (max-width: 639px) {
+  body .hero .section-wrapper {
+    width: 90%;
+    min-height: 95%; } }
 
 /*# sourceMappingURL=style.css.map */
