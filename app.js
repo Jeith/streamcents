@@ -49,7 +49,7 @@ app.use((req, res, next) => {
   next(createError(404))
 })
 
-const port = 1337
+const port = process.env.PORT || 1337
 
 app.listen(port, () => {
   console.log(`🚀 Listening on Port ${port}!`)
