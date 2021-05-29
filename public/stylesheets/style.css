@@ -150,7 +150,6 @@ body .hero {
   -ms-transition: all 0.25s ease-in-out;
   transition: all 0.25s ease-in-out;
   z-index: 5;
-  padding: 50px;
   min-height: 100vh;
   min-width: 100vw; }
   body .hero.autocomplete-view .section-wrapper .content-container {
@@ -333,10 +332,11 @@ body #artist-info {
     transition: all 0.25s ease-in-out;
     background-color: white;
     overflow: hidden;
-    width: 85%;
+    width: 100%;
     min-height: 90%;
     padding: 75px 75px 50px 75px;
     margin: 50px;
+    margin-top: 10px;
     border-radius: 25px; }
 body .tldr-section {
   display: -webkit-flex;
@@ -346,7 +346,8 @@ body .tldr-section {
   -ms-align-items: center;
   align-items: center;
   min-height: calc(100vh - 160px);
-  padding-bottom: 75px; }
+  padding-bottom: 75px;
+  padding-top: 75px; }
   body .tldr-section .text-container {
     width: 70%;
     padding-right: 40px; }
@@ -624,9 +625,11 @@ body .album-summary {
         padding-right: 10px; }
     body .album-summary .song-container p {
       font-weight: 600; }
-    body .album-summary .song-container span .amt-of-streams {
-      font-size: 11px;
-      color: #777; }
+    body .album-summary .song-container span {
+      white-space: nowrap; }
+      body .album-summary .song-container span .amt-of-streams {
+        font-size: 11px;
+        color: #777; }
 body .singles-section {
   padding-bottom: 75px; }
 body .support-artist-section h2 {
@@ -676,6 +679,8 @@ body .support-artist-section .merch-container {
   body .related-artist-section .artists-container .pager#page-back {
     left: -25px; } }
 @media all and (max-width: 1279px) {
+  body .hero .section-wrapper {
+    width: 92%; }
   body #artist-info {
     padding: 0; }
   body .related-artist-section .artists-container .pagination-container a div {
@@ -692,30 +697,110 @@ body .support-artist-section .merch-container {
     padding: 50px; }
     body .hero .section-wrapper h1 {
       font-size: 50px; }
+  body .tldr-section .text-container {
+    width: 70%;
+    padding-right: 40px; }
+    body .tldr-section .text-container.full-width {
+      width: 100%; }
+    body .tldr-section .text-container h1 {
+      font-size: 75px; }
+    body .tldr-section .text-container p {
+      font-size: 40px; }
+  body .tldr-section .img-container.multiple-imgs {
+    cursor: pointer; }
+  body .album-section .album-container {
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+    align-items: center; }
+    body .album-section .album-container .img-container {
+      height: 450px;
+      width: 450px; }
+      body .album-section .album-container .img-container:before {
+        height: 450px;
+        width: 450px; }
+      body .album-section .album-container .img-container img {
+        height: 450px;
+        width: 450px; }
+    body .album-section .album-container .album-summary {
+      margin: 45px 0 50px 0;
+      width: 100%; }
   body #artist-info .artist-info-wrapper {
     width: 100%;
     padding: 50px; }
   body .related-artist-section .artists-container .pagination-container a .image-conatiner {
     width: 125px;
-    height: 125px; } }
+    height: 125px; }
+  body .support-artist-section .merch-container .merch-item {
+    width: calc(30vw - 55px); }
+    body .support-artist-section .merch-container .merch-item .merch-img {
+      height: calc(30vw - 55px);
+      width: calc(30vw - 55px); } }
 @media all and (max-width: 900px) {
+  body .tldr-section {
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-justify-content: center;
+    justify-content: center;
+    min-height: calc(75vh - 160px); }
+    body .tldr-section .text-container {
+      width: 100%; }
+    body .tldr-section .img-container {
+      display: none; }
+      body .tldr-section .img-container.multiple-imgs {
+        cursor: pointer; }
   body .hero .section-wrapper h1 {
     font-size: 40px; }
   body .hero .section-wrapper form {
     min-width: 100%; }
   body #artist-info .artist-info-wrapper {
-    padding: 25px 50px; }
-  body .related-artist-section .artists-container .pagination-container a .image-conatiner {
-    width: 100px;
-    height: 100px; } }
+    padding: 100px 50px 25px; }
+  body .related-artist-section .artists-container {
+    left: -5px; }
+    body .related-artist-section .artists-container .pagination-container a .image-conatiner {
+      width: 100px;
+      height: 100px; }
+    body .related-artist-section .artists-container .pagination-container a p {
+      font-size: 16px; } }
 @media all and (max-width: 767px) {
   body .hero .section-wrapper .content-container {
     padding: 50px 50px 0; }
   body .hero .section-wrapper h1 {
-    font-size: 40px; } }
+    font-size: 40px; }
+  body #artist-info .artist-info-wrapper {
+    margin: 20px; }
+  body .album-section .album-container {
+    padding-bottom: 10px; }
+    body .album-section .album-container .img-container {
+      height: calc(100vw - 140px);
+      width: calc(100vw - 140px); }
+      body .album-section .album-container .img-container:before {
+        height: calc(100vw - 120px);
+        width: calc(100vw - 120px); }
+      body .album-section .album-container .img-container img {
+        height: calc(100vw - 140px);
+        width: calc(100vw - 140px); } }
 @media all and (max-width: 639px) {
+  body header {
+    padding: 45px 25px; }
   body .hero .section-wrapper {
     width: 90%;
-    min-height: 95%; } }
+    min-height: 95%; }
+    body .hero .section-wrapper .content-container {
+      padding: 50px 25px 0; }
+  body #artist-info .artist-info-wrapper {
+    padding: 100px 25px 25px; }
+  body .album-section .album-container .album-summary .album-name h4 {
+    font-size: 20px; }
+  body .album-section .album-container .album-summary .song-name p {
+    font-size: 14px; }
+  body .album-section .album-container .album-summary .song-name span {
+    font-size: 14px; } }
 
 /*# sourceMappingURL=style.css.map */
