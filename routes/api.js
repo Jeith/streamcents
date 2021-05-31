@@ -1,6 +1,7 @@
-var express = require('express');
-var axios = require('axios');
-var router = express.Router();
+const express = require('express');
+const axios = require('axios');
+const router = express.Router();
+const apiUrl = process.env.ENVIRONMENT === "production" ? "https://streamcents.com" : "http://localhost:1337";
 
 router.get('/get-access-token', function(req, res, next) {
     let params = new URLSearchParams();
@@ -25,7 +26,7 @@ router.get('/get-access-token', function(req, res, next) {
 router.get('/search-artists/:artist', function(req, res, next) {
     let artist = req.params.artist;
 
-    axios.get(`http://localhost:1337/api/get-access-token`)
+    axios.get(`${apiUrl}/api/get-access-token`)
     .then((token) => {
         const config = {
             headers: {
@@ -50,7 +51,7 @@ router.get('/search-artists/:artist', function(req, res, next) {
 router.get('/get-artist/:artistId', function(req, res, next) {
     let artistId = req.params.artistId;
 
-    axios.get(`http://localhost:1337/api/get-access-token`)
+    axios.get(`${apiUrl}/api/get-access-token`)
     .then((token) => {
         const config = {
             headers: {
