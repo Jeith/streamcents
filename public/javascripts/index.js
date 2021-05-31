@@ -2,6 +2,7 @@ $(document).ready(function() {
     let suggestionArtists = ["Black Eyed Peas", "RuPaul", "Anamanaguchi", "Drake", "Justin Bieber", "Lizzo", "Big Time Rush", "Pitbull", "Elton John", "The Garden", "BTS", "Doja Cat", "Cardi B", "Jay-Z", "Taylor Smith", "Katy Perry", "Post Malone", "Mariah Carey", "Billy Eilish", "Miley Cyrus", "Kayne West", "Beyoncé", "Grimes", "Azealia Banks", "Taking Back Sunday", "Stevie Wonder", "M.I.A", "Lil Nas X", "Clario", "The Smiths", "Diana Ross", "Björk", "Kendrick Lamar", "George Benson", "The Isly Brothers", "Lady Gaga", "100 gecs", "Ariana Grande", "The Jonas Brothers", "Usher", "Trey Songz", "3OH!3", "Alicia Keys", "50 Cent", "Taio Cruz"];
     let firstArtist = suggestionArtists[Math.floor(Math.random() * suggestionArtists.length)];
     let secondArtist = suggestionArtists.filter((artist) => (artist !== firstArtist))[Math.floor(Math.random() * suggestionArtists.filter((artist) => (artist !== firstArtist)).length)];
+    const apiUrl = process.env.ENVIRONMENT === "production" ? "https://streamcents.com" : "http://localhost:1337";
 
     $("#artist").attr("placeholder", `Search any artist by name like "${firstArtist}" or "${secondArtist}".`)
     let storedVisitedRoutes = JSON.parse(localStorage.getItem("visitedRoutes"));
@@ -10,7 +11,7 @@ $(document).ready(function() {
         let artistName = $("#artist").val();
 
         if (artistName !== ""){
-            axios.get(`http://localhost:1337/api/search-artists/${artistName}`)
+            axios.get(`${apiUrl}/api/search-artists/${artistName}`)
             .then((response) => {
                 let artists = response.data.artists.items
                 let numOfItems = artists.length;

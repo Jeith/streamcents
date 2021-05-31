@@ -15,8 +15,9 @@ router.get('/about', (req, res, next) => {
 /* GET artist details page. */
 router.get('/artist/:artistId', (req, res, next) => {
   let artistId = req.params.artistId;
+  const apiUrl = process.env.ENVIRONMENT === "production" ? "https://streamcents.com" : "http://localhost:1337";
 
-  axios.get(`http://localhost:1337/api/get-artist-info/${artistId}`)
+  axios.get(`${apiUrl}/api/get-artist-info/${artistId}`)
   .then((playcountResponse) => {
     let data = playcountResponse.data;
     data.biography = null;
