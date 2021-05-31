@@ -29,8 +29,8 @@ router.get('/artist/:artistId', (req, res, next) => {
 });
 
 /* GET 404 page. */
-// router.get('/404', (req, res, next) => {
-//   res.render('404');
-// }); 
+router.get('/404', (req, res, next) => {
+  res.redirect('/');
+}); 
 
 module.exports = router;

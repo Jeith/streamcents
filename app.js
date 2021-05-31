@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 const app = express()
 const indexRouter = require('./routes/index')
 const apiRouter = require('./routes/api')
-const allowedOrigins = ['http://localhost:1337', 'https://pennystreams.com', 'https://pennystreams.herokuapp.com'];
+const allowedOrigins = ['http://localhost:1337', 'https://streamcents.com', 'https://pennystreams.herokuapp.com'];
 require('dotenv').config()
 
 // view engine setup

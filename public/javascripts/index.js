@@ -8,15 +8,13 @@ $(document).ready(function() {
 
     $("#artist").keyup(() => {
         let artistName = $("#artist").val();
-                    
+
         if (artistName !== ""){
             axios.get(`http://localhost:1337/api/search-artists/${artistName}`)
             .then((response) => {
                 let artists = response.data.artists.items
                 let numOfItems = artists.length;
                 let itemsToHide = 10 - numOfItems;
-
-                console.log("artists: ", artists)
 
                 for (let i = 0; i < itemsToHide; i++){
                     $(`#autocomplete-${9 - i}`).attr("href", "").addClass("opacity-none").text("");
@@ -101,17 +99,12 @@ $(document).ready(function() {
                 $(`#autocomplete-${9 - i}`).attr("href", "").addClass("opacity-none").text("");
             }
 
-            console.log('here!!')
             $(`#artist`).val(artistName)
             $(`#home`).addClass("load-page")
             $(`#artist-form`).removeClass("autocomplete-active")
             $(`.hero`).removeClass("autocomplete-view")
 
-            console.log("???", link)
-            // window.open(link, "_self")
             window.location.href = link;
-            // window.location.href = link;
-            // window.location.href = link;
         });
     });
 });

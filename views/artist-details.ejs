@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Penny Streams | How much does <%= data.info.name %> earn through streams?</title>
+	<title>Streamcents | How much does <%= data.info.name %> earn through streams?</title>
 	<% include ./partials/head.ejs %>
 </head>
 
@@ -145,7 +145,7 @@
 					<div class="merch-container">
 						<% for (let i = 0; i < data.merch.items.length; i++){ %>
 
-							<a href="<%= data.merch.items[i].link %>" target="_blank" class="merch-item">
+							<a href="<%= data.merch.items[i].link %>" target="_blank" rel="noopener" class="merch-item">
 								<div class="merch-img" style="background: url(<%= data.merch.items[i].image_uri %>) 50% 50% no-repeat;"></div>
 								<div class="name-price-container">
 									<p><%= data.merch.items[i].name %></p>
@@ -160,10 +160,6 @@
 	</div>
 
 	<script>
-		let data = <%-JSON.stringify(data)%>;
-
-		console.log("data: ", data)
-
 		function kFormatter(num) {
 			return Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'k' : Math.sign(num)*Math.abs(num)
 		}

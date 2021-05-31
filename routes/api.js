@@ -36,7 +36,6 @@ router.get('/search-artists/:artist', function(req, res, next) {
         
         axios.get(`https://api.spotify.com/v1/search?q=${artist}&type=artist&limit=9`, config)
         .then((response) => {
-            console.log("response: ", response)
             return res.json(response.data);
         })
         .catch((error) => {
@@ -92,9 +91,7 @@ router.get('/get-artist-info/:artistId', function(req, res, next) {
         let totalNumberOfStreamsFromSingles = 0;
         let missingAlbums = [];
 
-        console.log("loading...")
-        console.log("unfilteredAlbumReleases: ", unfilteredAlbumReleases)
-        console.log("singleReleases: ", singleReleases)
+        console.log("loading t4ils response...")
 
         if (unfilteredAlbumReleases !== undefined){
             let albumsToRemove = [];
@@ -114,16 +111,9 @@ router.get('/get-artist-info/:artistId', function(req, res, next) {
                     }
                 }
             }
-            console.log("albumsToRemove: ", albumsToRemove)
-
-            // PREVENT SINGLES BEING DOUBLE COUNTED IF SAME AMT OF STREAMS IN ALBUM(EX: Miranda Cosgrove)
-            // maybe just delete them at the end to make the main min-max earnings more accurate
 
             albumReleases = unfilteredAlbumReleases.filter(album => !albumsToRemove.includes(album.uri));
-
             artistData.releases.albums.releases = albumReleases;
-
-            console.log("albumReleases: ", albumReleases);
 
             for (let i = 0; i < albumReleases.length; i++){
                 artistData.releases.albums.releases[i].discs = artistData.releases.albums.releases[i].discs === undefined ? [] : artistData.releases.albums.releases[i].discs
@@ -162,32 +152,23 @@ router.get('/get-artist-info/:artistId', function(req, res, next) {
                 let totalAlbumStreams = 0;
                 let totalSongs = 0;
 
-                console.log("singleReleases: ", singleReleases[i])
-
                 for (let j = 0; j < discs.length; j++){
                     let totalDiscStreams = discs[j].tracks.reduce((acc, curr) => acc + curr.playcount, 0);
                     artistData.releases.singles.releases[i].discs[j].totalStreams = totalDiscStreams;
                     totalAlbumStreams += totalDiscStreams;
                     totalSongs += discs[j].tracks.length;
                 }
-                console.log("!!!");
 
                 artistData.releases.singles.releases[i].totalStreams = totalAlbumStreams;
                 artistData.releases.singles.releases[i].totalSongs = totalSongs;
 
-                console.log("???");
-
                 totalNumberOfStreams += totalAlbumStreams;
                 totalNumberOfStreamsFromSingles += totalAlbumStreams;
-
-                console.log("!?!");
             }
-            console.log("done?")
         } else {
             artistData.releases.singles.releases = [];
         }
 
-        console.log(":)")
         const minAmountOfEarnings = (totalNumberOfStreams * 0.003).toLocaleString('en-US', {maximumFractionDigits:0});
         const maxAmountOfEarnings = (totalNumberOfStreams * 0.005).toLocaleString('en-US', {maximumFractionDigits:0});
 
@@ -201,8 +182,6 @@ router.get('/get-artist-info/:artistId', function(req, res, next) {
         artistData.releases.singles.minAmountOfEarnings = minAmountOfEarningsFromSingles;
         artistData.releases.singles.maxAmountOfEarnings = maxAmountOfEarningsFromSingles;
         
-        console.log("LAST HERE")
-
         return res.json(artistData);
     })
     .catch((error) => {
