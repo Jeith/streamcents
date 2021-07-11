@@ -10,7 +10,7 @@ router.get('/', (req, res, next) => {
 /* GET about page. */
 router.get('/about', (req, res, next) => {
   res.render('about');
-}); 
+});
 
 /* GET artist details page. */
 router.get('/artist/:artistId', (req, res, next) => {
@@ -28,6 +28,11 @@ router.get('/artist/:artistId', (req, res, next) => {
     res.render('index');
   });
 });
+
+/* GET terms page. */
+router.get('/terms', (req, res, next) => {
+  res.render('terms');
+}); 
 
 /* GET 404 page. */
 router.get('/404', (req, res, next) => {

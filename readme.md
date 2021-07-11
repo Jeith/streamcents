@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://github.com/Jeith/streamcents/blob/master/public/assets/hero-thumbnail.png?raw=true" alt="Screenshot of the front page of Streamcents" align="center">
+<img src="https://github.com/Jeith/streamcents/blob/master/public/assets/hero-thumbnail.png?raw=true" alt="Screenshot of the front page of Pennystreams" align="center">
 </div>
 <br />
 

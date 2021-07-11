@@ -3,8 +3,8 @@
     "background_color": "#FFFFFF",
     "display": "standalone",
     "start_url": "/",
-    "name": "Streamcents | How much do your favorite artists earn?",
-    "short_name": "Streamcents",
+    "name": "Pennystreams | How much do your favorite artists earn?",
+    "short_name": "Pennystreams",
     "description": "Search any artist or band to get an estimate on how much their copyright holders earn through Spotify.",
     "icons": [
         {

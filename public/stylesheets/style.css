@@ -95,7 +95,7 @@ body.about .hero .section-wrapper h1 {
   font-size: 55px;
   text-align: left; }
   body.about .hero .section-wrapper h1 .sitename {
-    font-size: 65px; }
+    font-size: 57px; }
 body.about .hero .section-wrapper p {
   text-align: left;
   width: 100%;
@@ -105,8 +105,7 @@ body.about .hero .section-wrapper .credit {
   bottom: 40px; }
   body.about .hero .section-wrapper .credit a {
     font-size: 25px;
-    text-decoration: none;
-    font-family: 'Gorditas'; }
+    text-decoration: none; }
 body.load-page:after {
   opacity: 1; }
 body header {
@@ -135,6 +134,19 @@ body header {
     color: #0152e0; }
     body header a:hover {
       text-decoration: underline; }
+body.terms .hero .section-wrapper {
+  min-height: unset;
+  position: relative; }
+  body.terms .hero .section-wrapper .content-container {
+    top: unset;
+    position: relative;
+    padding: 75px 35px 0; }
+    body.terms .hero .section-wrapper .content-container h1 {
+      padding-bottom: 20px; }
+    body.terms .hero .section-wrapper .content-container h2 {
+      padding-bottom: 25px; }
+    body.terms .hero .section-wrapper .content-container li p {
+      text-align: left; }
 body .hero {
   display: -webkit-flex;
   display: flex;
@@ -206,13 +218,13 @@ body .hero {
       -o-transition: all 0.25s ease-in-out;
       -ms-transition: all 0.25s ease-in-out;
       transition: all 0.25s ease-in-out;
-      top: 22vh;
-      padding: 75px 75px 0;
+      top: 26vh;
+      padding: 75px 120px 0;
       position: absolute; }
     body .hero .section-wrapper h1 {
       padding-bottom: 30px;
       font-weight: 700;
-      font-size: 65px;
+      font-size: 50px;
       text-align: center; }
     body .hero .section-wrapper p {
       text-align: center;
@@ -354,7 +366,8 @@ body .tldr-section {
     body .tldr-section .text-container.full-width {
       width: 100%; }
     body .tldr-section .text-container h1 {
-      font-size: 90px; }
+      font-size: 60px;
+      font-weight: 600; }
     body .tldr-section .text-container p {
       font-size: 50px; }
       body .tldr-section .text-container p.disclaimer {
@@ -444,27 +457,27 @@ body .related-artist-section {
         width: 20%;
         padding-left: 25px;
         text-decoration: none; }
-        body .related-artist-section .artists-container .pagination-container a:hover .image-conatiner:after {
+        body .related-artist-section .artists-container .pagination-container a:hover .image-container:after {
           -webkit-transform: translate(10px, -10px) scale(1.1);
           -moz-transform: translate(10px, -10px) scale(1.1);
           -ms-transform: translate(10px, -10px) scale(1.1);
           transform: translate(10px, -10px) scale(1.1); }
-        body .related-artist-section .artists-container .pagination-container a:hover .image-conatiner.img-1:after {
+        body .related-artist-section .artists-container .pagination-container a:hover .image-container.img-1:after {
           -webkit-transform: translate(5px, -10px) scale(1.1);
           -moz-transform: translate(5px, -10px) scale(1.1);
           -ms-transform: translate(5px, -10px) scale(1.1);
           transform: translate(5px, -10px) scale(1.1); }
-        body .related-artist-section .artists-container .pagination-container a:hover .image-conatiner.img-2:after {
+        body .related-artist-section .artists-container .pagination-container a:hover .image-container.img-2:after {
           -webkit-transform: translate(0, -10px) scale(1.1);
           -moz-transform: translate(0, -10px) scale(1.1);
           -ms-transform: translate(0, -10px) scale(1.1);
           transform: translate(0, -10px) scale(1.1); }
-        body .related-artist-section .artists-container .pagination-container a:hover .image-conatiner.img-3:after {
+        body .related-artist-section .artists-container .pagination-container a:hover .image-container.img-3:after {
           -webkit-transform: translate(-5px, -10px) scale(1.1);
           -moz-transform: translate(-5px, -10px) scale(1.1);
           -ms-transform: translate(-5px, -10px) scale(1.1);
           transform: translate(-5px, -10px) scale(1.1); }
-        body .related-artist-section .artists-container .pagination-container a:hover .image-conatiner.img-4:after {
+        body .related-artist-section .artists-container .pagination-container a:hover .image-container.img-4:after {
           -webkit-transform: translate(-10px, -10px) scale(1.1);
           -moz-transform: translate(-10px, -10px) scale(1.1);
           -ms-transform: translate(-10px, -10px) scale(1.1);
@@ -473,22 +486,22 @@ body .related-artist-section {
           padding-left: 0px; }
           body .related-artist-section .artists-container .pagination-container a:first-of-type img {
             width: calc(100% - 20px); }
-        body .related-artist-section .artists-container .pagination-container a .image-conatiner {
+        body .related-artist-section .artists-container .pagination-container a .image-container {
           width: 150px;
           height: 150px; }
-          body .related-artist-section .artists-container .pagination-container a .image-conatiner.img-1:after {
+          body .related-artist-section .artists-container .pagination-container a .image-container.img-1:after {
             left: -5px;
             background-color: #e3e81d; }
-          body .related-artist-section .artists-container .pagination-container a .image-conatiner.img-2:after {
+          body .related-artist-section .artists-container .pagination-container a .image-container.img-2:after {
             left: 0;
             background-color: #1de840; }
-          body .related-artist-section .artists-container .pagination-container a .image-conatiner.img-3:after {
+          body .related-artist-section .artists-container .pagination-container a .image-container.img-3:after {
             left: 5px;
             background-color: #1ddde8; }
-          body .related-artist-section .artists-container .pagination-container a .image-conatiner.img-4:after {
+          body .related-artist-section .artists-container .pagination-container a .image-container.img-4:after {
             left: 10px;
             background-color: #2b1de8; }
-          body .related-artist-section .artists-container .pagination-container a .image-conatiner:after {
+          body .related-artist-section .artists-container .pagination-container a .image-container:after {
             content: "";
             -webkit-transition: all 0.5s ease-in-out;
             -moz-transition: all 0.5s ease-in-out;
@@ -612,6 +625,18 @@ body .album-summary {
       padding-top: 5px; }
     body .album-summary .song-container:last-of-type {
       border-bottom: none; }
+    body .album-summary .song-container .full-numbers {
+      -webkit-align-items: center;
+      -moz-align-items: center;
+      -ms-align-items: center;
+      align-items: center;
+      align-items: center; }
+    body .album-summary .song-container .abbr-numbers {
+      display: none;
+      -webkit-align-items: center;
+      -moz-align-items: center;
+      -ms-align-items: center;
+      align-items: center; }
     body .album-summary .song-container .img-text-container {
       display: -webkit-flex;
       display: flex;
@@ -628,6 +653,7 @@ body .album-summary {
     body .album-summary .song-container span {
       white-space: nowrap; }
       body .album-summary .song-container span .amt-of-streams {
+        padding-left: 3px;
         font-size: 11px;
         color: #777; }
 body .singles-section {
@@ -667,6 +693,8 @@ body .support-artist-section .merch-container {
         text-align: right;
         width: 25%;
         font-weight: 500; }
+body .designed-by-block p {
+  font-size: 14px; }
 
 .credit span a {
   text-decoration: none;
@@ -687,9 +715,7 @@ body .support-artist-section .merch-container {
     width: 100px;
     height: 100px; } }
 @media all and (max-width: 1139px) {
-  body .hero .section-wrapper h1 {
-    font-size: 58px; }
-  body .related-artist-section .artists-container .pagination-container a .image-conatiner {
+  body .related-artist-section .artists-container .pagination-container a .image-container {
     width: 125px;
     height: 125px; } }
 @media all and (max-width: 1023px) {
@@ -732,7 +758,7 @@ body .support-artist-section .merch-container {
   body #artist-info .artist-info-wrapper {
     width: 100%;
     padding: 50px; }
-  body .related-artist-section .artists-container .pagination-container a .image-conatiner {
+  body .related-artist-section .artists-container .pagination-container a .image-container {
     width: 125px;
     height: 125px; }
   body .support-artist-section .merch-container .merch-item {
@@ -763,7 +789,7 @@ body .support-artist-section .merch-container {
     padding: 100px 50px 25px; }
   body .related-artist-section .artists-container {
     left: -5px; }
-    body .related-artist-section .artists-container .pagination-container a .image-conatiner {
+    body .related-artist-section .artists-container .pagination-container a .image-container {
       width: 100px;
       height: 100px; }
     body .related-artist-section .artists-container .pagination-container a p {
@@ -794,13 +820,154 @@ body .support-artist-section .merch-container {
     min-height: 95%; }
     body .hero .section-wrapper .content-container {
       padding: 50px 25px 0; }
+  body .tldr-section {
+    min-height: 10px; }
+    body .tldr-section .text-container {
+      padding-right: 0; }
+      body .tldr-section .text-container h1 {
+        font-size: 52px;
+        text-align: center; }
+      body .tldr-section .text-container p {
+        font-size: 28px;
+        text-align: center; }
   body #artist-info .artist-info-wrapper {
     padding: 100px 25px 25px; }
+  body .album-section h2 {
+    padding-bottom: 45px; }
   body .album-section .album-container .album-summary .album-name h4 {
     font-size: 20px; }
   body .album-section .album-container .album-summary .song-name p {
     font-size: 14px; }
   body .album-section .album-container .album-summary .song-name span {
-    font-size: 14px; } }
+    font-size: 14px; }
+  body .related-artist-section {
+    padding-bottom: 75px; }
+    body .related-artist-section h2 {
+      padding: 5px; }
+    body .related-artist-section .artists-container {
+      left: 0;
+      overflow: auto;
+      height: 185px;
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */
+      overflow-y: hidden; }
+      body .related-artist-section .artists-container::-webkit-scrollbar {
+        display: none; }
+      body .related-artist-section .artists-container .pager {
+        display: none; }
+      body .related-artist-section .artists-container .pagination-container {
+        width: unset; }
+        body .related-artist-section .artists-container .pagination-container.hidden {
+          display: flex !important; }
+        body .related-artist-section .artists-container .pagination-container a .image-container.img-1:after {
+          left: 0; }
+        body .related-artist-section .artists-container .pagination-container a .image-container.img-3:after {
+          right: 0; }
+        body .related-artist-section .artists-container .pagination-container a .image-container.img-4:after {
+          left: 0; }
+        body .related-artist-section .artists-container .pagination-container a .image-container:after {
+          left: 0; }
+        body .related-artist-section .artists-container .pagination-container a p {
+          font-size: 16px; }
+  body .singles-section h2 {
+    padding-bottom: 30px; }
+  body .support-artist-section .merch-container {
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+    align-items: center; }
+    body .support-artist-section .merch-container .merch-item {
+      width: calc(100vw - 90px);
+      margin-right: 0; }
+      body .support-artist-section .merch-container .merch-item .merch-img {
+        height: calc(100vw - 90px);
+        width: calc(100vw - 90px); } }
+@media all and (max-width: 500px) {
+  body .album-summary .song-container {
+    font-size: 14px; }
+    body .album-summary .song-container .full-numbers {
+      display: none; }
+    body .album-summary .song-container .abbr-numbers {
+      display: -webkit-flex;
+      display: flex; }
+  body .hero .section-wrapper {
+    padding: 23px; }
+    body .hero .section-wrapper h1 {
+      font-size: 33px;
+      padding-bottom: 15px; }
+    body .hero .section-wrapper .autocomplete-container {
+      max-width: unset; }
+  body .tldr-section .text-container {
+    padding-right: 0; }
+  body #artist-info .artist-info-wrapper {
+    padding: 100px 15px 25px;
+    margin: 20px; }
+  body .album-section {
+    padding-bottom: 0px; } }
+@media all and (max-width: 400px) {
+  body header h4 {
+    font-size: 16px; }
+  body header a {
+    font-size: 14px; }
+  body .album-summary .song-container {
+    font-size: 12px; }
+    body .album-summary .song-container .full-numbers {
+      -webkit-flex-direction: column;
+      -moz-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column; }
+    body .album-summary .song-container .abbr-numbers {
+      -webkit-flex-direction: column;
+      -moz-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column; }
+  body .hero .section-wrapper .content-container {
+    padding: 15px 15px 0; }
+  body .hero .section-wrapper h1 {
+    font-size: 29px;
+    padding-bottom: 5px; }
+  body .hero .section-wrapper p {
+    padding-bottom: 10px;
+    font-size: 14px; }
+  body .hero .section-wrapper form input {
+    border-radius: 9px 0 0 9px; }
+  body .hero .section-wrapper form button {
+    border-radius: 0 9px 9px 0; }
+  body .tldr-section .text-container h1 {
+    font-size: 29px; }
+  body .tldr-section .text-container p {
+    font-size: 19px; }
+    body .tldr-section .text-container p.disclaimer {
+      font-size: 9px; }
+  body .album-section h2 {
+    font-size: 29px; }
+  body .related-artist-section {
+    padding-bottom: 15px; }
+    body .related-artist-section h2 {
+      font-size: 29px; }
+    body .related-artist-section .artists-container {
+      -webkit-align-items: flex-start;
+      -moz-align-items: flex-start;
+      -ms-align-items: flex-start;
+      align-items: flex-start; }
+      body .related-artist-section .artists-container .pagination-container a {
+        padding-top: 20px; }
+        body .related-artist-section .artists-container .pagination-container a .image-container {
+          width: 85px;
+          height: 85px; }
+        body .related-artist-section .artists-container .pagination-container a p {
+          font-size: 14px; }
+  body .support-artist-section h2 {
+    font-size: 29px;
+    padding-bottom: 10px; }
+  body .support-artist-section p {
+    font-size: 12px;
+    padding-bottom: 25px; } }
 
 /*# sourceMappingURL=style.css.map */

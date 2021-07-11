@@ -3,6 +3,24 @@ const axios = require('axios');
 const router = express.Router();
 const apiUrl = process.env.ENVIRONMENT === "production" ? "https://streamcents.com" : "http://localhost:1337";
 
+nFormatter = (num, digits) => {
+    const lookup = [
+        { value: 1, symbol: "" },
+        { value: 1e3, symbol: "k" },
+        { value: 1e6, symbol: "M" },
+        { value: 1e9, symbol: "B" },
+        { value: 1e12, symbol: "T" },
+        { value: 1e15, symbol: "Q" },
+        { value: 1e18, symbol: "E" }
+    ];
+    const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+    var item = lookup.slice().reverse().find(function(item) {
+        return num >= item.value;
+    });
+
+    return item ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol : "0";
+}
+
 router.get('/get-access-token', function(req, res, next) {
     let params = new URLSearchParams();
     params.append('grant_type', 'client_credentials');
@@ -80,6 +98,8 @@ function (n) {
 router.get('/get-artist-info/:artistId', function(req, res, next) {
     let artistId = req.params.artistId;
 
+    console.log(`https://api.t4ils.dev/artistInfo?artistid=${artistId}`)
+
     axios.get(`https://api.t4ils.dev/artistInfo?artistid=${artistId}`)
     .then((response) => {
         console.log(response)
@@ -91,8 +111,6 @@ router.get('/get-artist-info/:artistId', function(req, res, next) {
         let totalNumberOfStreams = 0;
         let totalNumberOfStreamsFromSingles = 0;
         let missingAlbums = [];
-
-        console.log("loading t4ils response...")
 
         if (unfilteredAlbumReleases !== undefined){
             let albumsToRemove = [];
@@ -129,12 +147,34 @@ router.get('/get-artist-info/:artistId', function(req, res, next) {
                     artistData.releases.albums.releases[i].discs[j].totalStreams = totalDiscStreams;
                     totalAlbumStreams += totalDiscStreams;
                     totalSongs += discs[j].tracks.length;
+
+                    for (let x = 0; x < totalSongs; x++){
+                        let song = discs[j].tracks[x];
+                        let minSongEarnings = (song.playcount * .003).toLocaleString('en-US', {maximumFractionDigits:0});
+                        let maxSongEarnings = (song.playcount * .006).toLocaleString('en-US', {maximumFractionDigits:0});
+                        let abbrPlaycount = nFormatter(song.playcount, 1);
+                        let abbrMinEarnings = nFormatter(song.playcount * .003);
+                        let abbrMaxEarnings = nFormatter(song.playcount * .006);
+                        let playcount = song.playcount.toLocaleString('en-US', {maximumFractionDigits:0});
+
+                        discs[j].tracks[x].playcount = playcount;
+                        discs[j].tracks[x].abbrPlaycount = abbrPlaycount;
+                        discs[j].tracks[x].minSongEarnings = minSongEarnings;
+                        discs[j].tracks[x].maxSongEarnings = maxSongEarnings;
+                        discs[j].tracks[x].abbrMinEarnings = abbrMinEarnings;
+                        discs[j].tracks[x].abbrMaxEarnings = abbrMaxEarnings;
+                    }
                 }
                 if (totalSongs === 0){
                     missingAlbums.push(albumReleases[i].name);
                 }
 
-                artistData.releases.albums.releases[i].totalStreams = totalAlbumStreams;
+                artistData.releases.albums.releases[i].abbrTotalStreams = nFormatter(totalAlbumStreams, 1);
+                artistData.releases.albums.releases[i].totalStreams = totalAlbumStreams.toLocaleString('en-US', {maximumFractionDigits:0});
+                artistData.releases.albums.releases[i].totalMinEarnings = (totalAlbumStreams * .003).toLocaleString('en-US', {maximumFractionDigits:0});
+                artistData.releases.albums.releases[i].totalMaxEarnings = (totalAlbumStreams * .006).toLocaleString('en-US', {maximumFractionDigits:0});
+                artistData.releases.albums.releases[i].abbrMinEarnings = nFormatter(totalAlbumStreams * .003, 1);
+                artistData.releases.albums.releases[i].abbrMaxEarnings = nFormatter(totalAlbumStreams * .006, 1);
                 artistData.releases.albums.releases[i].totalSongs = totalSongs;
                 totalNumberOfStreams += totalAlbumStreams;
             }
@@ -158,6 +198,23 @@ router.get('/get-artist-info/:artistId', function(req, res, next) {
                     artistData.releases.singles.releases[i].discs[j].totalStreams = totalDiscStreams;
                     totalAlbumStreams += totalDiscStreams;
                     totalSongs += discs[j].tracks.length;
+
+                    for (let x = 0; x < totalSongs; x++){
+                        let song = discs[j].tracks[x];
+                        let minSongEarnings = (song.playcount * .003).toLocaleString('en-US', {maximumFractionDigits:0});
+                        let maxSongEarnings = (song.playcount * .006).toLocaleString('en-US', {maximumFractionDigits:0});
+                        let abbrPlaycount = nFormatter(song.playcount, 1);
+                        let abbrMinEarnings = nFormatter(song.playcount * .003);
+                        let abbrMaxEarnings = nFormatter(song.playcount * .006);
+                        let playcount = song.playcount.toLocaleString('en-US', {maximumFractionDigits:0});
+
+                        discs[j].tracks[x].playcount = playcount;
+                        discs[j].tracks[x].abbrPlaycount = abbrPlaycount;
+                        discs[j].tracks[x].minSongEarnings = minSongEarnings;
+                        discs[j].tracks[x].maxSongEarnings = maxSongEarnings;
+                        discs[j].tracks[x].abbrMinEarnings = abbrMinEarnings;
+                        discs[j].tracks[x].abbrMaxEarnings = abbrMaxEarnings;
+                    }
                 }
 
                 artistData.releases.singles.releases[i].totalStreams = totalAlbumStreams;

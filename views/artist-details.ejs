@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Streamcents | How much does <%= data.info.name %> earn through streams?</title>
+	<title>How much does <%= data.info.name %> earn through Spotify? | Pennystreams</title>
 	<% include ./partials/head.ejs %>
 </head>
 
@@ -15,7 +15,7 @@
 			<section class="tldr-section">
 				<div class="<%= Object.keys(data.gallery).length === 0 ? 'text-container full-width' : 'text-container' %>">
 					<h1><%= data.info.name %></h1>
-					<p>has earned an estimated <strong>$<%= data.releases.minAmountOfEarnings %></strong> - <strong>$<%= data.releases.maxAmountOfEarnings %></strong> on Spotify through the releases of <%= Object.keys(data.releases.albums).length !== 0 ? `${data.releases.albums.releases.length} albums` : "" %><%= Object.keys(data.releases.albums).length !== 0 && Object.keys(data.releases.singles).length !== 0 ? " and " : "." %><%= Object.keys(data.releases.singles).length !== 0 ? `${data.releases.singles.releases.length} singles.` : "" %><%= data.releases.albums.missingAlbums.length !== 0 ? "*" : "" %></p>
+					<p>has earned an estimated <strong>$<%= data.releases.minAmountOfEarnings %></strong> - <strong>$<%= data.releases.maxAmountOfEarnings %></strong> on Spotify through the releases of <%= Object.keys(data.releases.albums).length !== 0 ? `${data.releases.albums.releases.length} albums` : "" %><%= Object.keys(data.releases.albums).length !== 0 || Object.keys(data.releases.singles).length !== 0 ? " and " : "." %><%= Object.keys(data.releases.singles).length !== 0 ? `${data.releases.singles.releases.length} singles.` : "" %><%= data.releases.albums.missingAlbums.length !== 0 ? "*" : "" %></p>
 					<% if (data.releases.albums.missingAlbums.length !== 0){ %>
 						<p class="disclaimer">*This number is under reported due to missing data for album<%= data.releases.albums.missingAlbums.length !== 1 ? "s" : "" %> 
 							<% for (let i = 0; i < data.releases.albums.missingAlbums.length; i++){ %>
@@ -46,7 +46,7 @@
 								<% for (let j = 0 + (i * 5); j < 5 + (i * 5); j++){ %>
 									<% if (data.related_artists.artists[j] !== undefined){ %>
 										<a href="/artist/<%= data.related_artists.artists[j].uri.split('spotify:artist:').join('') %>" class="link-<%=j - (i * 5 )%>">
-											<div class="image-conatiner img-<%=j - (i * 5 )%>">
+											<div class="image-container img-<%=j - (i * 5 )%>">
 												<% if (data.related_artists.artists[j].portraits !== undefined){ %>
 													<div class="related-artist-image" style="background:url(<%= data.related_artists.artists[j].portraits[0].uri %>) 50% 50% no-repeat" alt="A portrait of <%= data.related_artists.artists[j].name %>."></div>
 												<% } %>
@@ -73,7 +73,7 @@
 							<div class="album-container">
 								<div class="img-container album-<%=i%>">
 									<% if (data.releases.albums.releases[i].cover !== undefined){ %>
-										<img src="<%= data.releases.albums.releases[i].cover.uri %>" alt="album cover"/>
+										<img src="<%= data.releases.albums.releases[i].cover.uri %>" alt="Album cover for <%= data.releases.albums.releases[i].name %>"/>
 									<% } %>
 								</div>
 
@@ -86,13 +86,15 @@
 										<% for (let x = 0; x < data.releases.albums.releases[i].discs[j].tracks.length; x++){ %>
 											<div class="song-container">
 												<p><%= data.releases.albums.releases[i].discs[j].tracks[x].name %></p>
-												<span>$<%= (data.releases.albums.releases[i].discs[j].tracks[x].playcount * .003).toLocaleString('en-US', {maximumFractionDigits:0}) %> - $<%= (data.releases.albums.releases[i].discs[j].tracks[x].playcount * .005).toLocaleString('en-US', {maximumFractionDigits:0}) %> <span class="amt-of-streams">(<%= data.releases.albums.releases[i].discs[j].tracks[x].playcount.toLocaleString('en-US', {maximumFractionDigits:0}) %> streams)<span></span>
+												<span class="full-numbers">$<%= data.releases.albums.releases[i].discs[j].tracks[x].minSongEarnings %> - $<%= data.releases.albums.releases[i].discs[j].tracks[x].maxSongEarnings %> <span class="amt-of-streams">(<%= data.releases.albums.releases[i].discs[j].tracks[x].playcount %> streams)</span></span>
+												<span class="abbr-numbers">$<%= data.releases.albums.releases[i].discs[j].tracks[x].abbrMinEarnings %> - $<%= data.releases.albums.releases[i].discs[j].tracks[x].abbrMaxEarnings %> <span class="amt-of-streams">(<%= data.releases.albums.releases[i].discs[j].tracks[x].abbrPlaycount %> streams)</span></span>
 											</div>
 										<% } %>
 									<% } %>
 									<div class="song-container total">
 										<p>Total Earned:</p>
-										<span>$<%= (data.releases.albums.releases[i].totalStreams * .003).toLocaleString('en-US', {maximumFractionDigits:0}) %> - $<%= (data.releases.albums.releases[i].totalStreams * .005).toLocaleString('en-US', {maximumFractionDigits:0}) %> <span class="amt-of-streams">(<%= data.releases.albums.releases[i].totalStreams.toLocaleString('en-US', {maximumFractionDigits:0}) %> streams)</span></span>
+										<span class="full-numbers">$<%= data.releases.albums.releases[i].totalMinEarnings %> - $<%= data.releases.albums.releases[i].totalMaxEarnings %> <span class="amt-of-streams">(<%= data.releases.albums.releases[i].totalStreams %> streams)</span></span>
+										<span class="abbr-numbers">$<%= data.releases.albums.releases[i].abbrMinEarnings %> - $<%= data.releases.albums.releases[i].abbrMaxEarnings %> <span class="amt-of-streams">(<%= data.releases.albums.releases[i].abbrTotalStreams %> streams)</span></span>
 									</div>
 								</div>
 							</div>
@@ -112,17 +114,18 @@
 									<% for (let x = 0; x < data.releases.singles.releases[i].discs[j].tracks.length; x++){ %>
 										<div class="song-container">
 											<div class="img-text-container">
-												<img src="<%= data.releases.singles.releases[i].cover.uri %>" alt="album cover"/>
+												<img src="<%= data.releases.singles.releases[i].cover.uri %>" alt="Album art for <%= data.releases.singles.releases[i].discs[j].tracks[x].name %>"/>
 												<p><%= data.releases.singles.releases[i].discs[j].tracks[x].name %></p>
-											</div>	
-											<span>$<%= (data.releases.singles.releases[i].discs[j].tracks[x].playcount * .0032).toLocaleString('en-US', {maximumFractionDigits:0}) %> - $<%= (data.releases.singles.releases[i].discs[j].tracks[x].playcount * .005).toLocaleString('en-US', {maximumFractionDigits:0}) %> <span class="amt-of-streams">(<%= data.releases.singles.releases[i].discs[j].tracks[x].playcount.toLocaleString('en-US', {maximumFractionDigits:0}) %> streams)<span></span>
+											</div>
+											<span class="full-numbers">$<%= data.releases.singles.releases[i].discs[j].tracks[x].minSongEarnings %> - $<%= data.releases.singles.releases[i].discs[j].tracks[x].maxSongEarnings %> <span class="amt-of-streams">(<%= data.releases.singles.releases[i].discs[j].tracks[x].playcount %> streams)</span></span>
+											<span class="abbr-numbers">$<%= data.releases.singles.releases[i].discs[j].tracks[x].abbrMinEarnings %> - $<%= data.releases.singles.releases[i].discs[j].tracks[x].abbrMaxEarnings %> <span class="amt-of-streams">(<%= data.releases.singles.releases[i].discs[j].tracks[x].abbrPlaycount %> streams)</span></span>
 										</div>
 									<% } %>
 								<% } %>
 							<% } else { %>
 								<div class="song-container">
 									<div class="img-text-container">
-										<img src="<%= data.releases.singles.releases[i].cover.uri %>" alt="album cover"/>
+										<img src="<%= data.releases.singles.releases[i].cover.uri %>" alt="Album art for <%= data.releases.singles.releases[i].name %>"/>
 										<p><%= data.releases.singles.releases[i].name %></p>
 									</div>	
 									<span>-- <span class="amt-of-streams">(Missing data)<span></span>
@@ -144,7 +147,6 @@
 
 					<div class="merch-container">
 						<% for (let i = 0; i < data.merch.items.length; i++){ %>
-
 							<a href="<%= data.merch.items[i].link %>" target="_blank" rel="noopener" class="merch-item">
 								<div class="merch-img" style="background: url(<%= data.merch.items[i].image_uri %>) 50% 50% no-repeat;"></div>
 								<div class="name-price-container">
@@ -156,13 +158,15 @@
 					</div>
 				</section>
 			<% } %>
+			<div class="designed-by-block">
+				<p>Designed & Developed by <a href="https://jeith.com/" target="_blank">Jeith</a></p>
+			</div>
 		</div>
 	</div>
 
 	<script>
-		function kFormatter(num) {
-			return Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'k' : Math.sign(num)*Math.abs(num)
-		}
+		console.log(<%-JSON.stringify(data)%>);
+
 
 		$("#page-forward").click((e) => {
 			let paginationContainer = document.getElementsByClassName("pagination-container");
