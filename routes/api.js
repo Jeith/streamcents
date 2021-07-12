@@ -1,7 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
-const apiUrl = process.env.ENVIRONMENT === "production" ? "https://streamcents.com" : "http://localhost:1337";
+const apiUrl = process.env.ENVIRONMENT === "production" ? "https://pennystreams.com" : "http://localhost:1337";
 
 nFormatter = (num, digits) => {
     const lookup = [
