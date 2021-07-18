@@ -4,6 +4,6 @@
 <br />
 
 <div align="center">
-<a href="https://pennystreams.com">https://pennystreams.com</a> is now in beta! Get an estimate of how much any artist or band has earned through Spotify streams. Currently still building out responsiveness for mobile screens. Built with Node.js, SCSS/CSS3, and HTML5.
+<a href="https://pennystreams.com">https://pennystreams.com</a> is now in beta! Search any artist or band to get an estimate on how much their copyright holders have earned through Spotify. Built with Node.js, SCSS/CSS3, and HTML5.
 </div>
 <br />
