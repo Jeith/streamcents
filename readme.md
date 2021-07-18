@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://github.com/Jeith/pennystreams/blob/master/public/assets/hero-thumbnail.png?raw=true" alt="Screenshot of the front page of Pennystreams" align="center">
+<img src="https://github.com/Jeith/penny-streams/blob/master/public/assets/hero-thumbnail.png?raw=true" alt="Screenshot of the front page of Pennystreams" align="center">
 </div>
 <br />
 
