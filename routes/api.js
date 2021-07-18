@@ -3,6 +3,11 @@ const axios = require('axios');
 const router = express.Router();
 const apiUrl = process.env.ENVIRONMENT === "production" ? "https://pennystreams.com" : "http://localhost:1337";
 
+String.prototype.trunc = String.prototype.trunc ||
+function (n) {
+    return (this.length > n) ? this.substr(0, n - 1) + '...' : this;
+};
+
 nFormatter = (num, digits) => {
     const lookup = [
         { value: 1, symbol: "" },
@@ -90,20 +95,13 @@ router.get('/get-artist/:artistId', function(req, res, next) {
         return error
     })
 });
-String.prototype.trunc = String.prototype.trunc ||
-function (n) {
-    return (this.length > n) ? this.substr(0, n - 1) + '...' : this;
-};
 
 router.get('/get-artist-info/:artistId', function(req, res, next) {
     let artistId = req.params.artistId;
 
-    console.log(`https://api.t4ils.dev/artistInfo?artistid=${artistId}`)
-
+    // calling t4ils' librespot playout API - thanks t4ils.dev :)
     axios.get(`https://api.t4ils.dev/artistInfo?artistid=${artistId}`)
     .then((response) => {
-        console.log(response)
-
         let artistData = response.data.data;
         let unfilteredAlbumReleases = artistData.releases.albums.releases;
         let albumReleases = [];
@@ -115,6 +113,7 @@ router.get('/get-artist-info/:artistId', function(req, res, next) {
         if (unfilteredAlbumReleases !== undefined){
             let albumsToRemove = [];
 
+            // removing standard albums if deluxe is availible - songs that are on standard and deluxe albums share the same number of streams and can cause overcounting in streams
             if (unfilteredAlbumReleases.length !== 1){
                 for (let i = 0; i < unfilteredAlbumReleases.length; i++){
                     let innerLoopAlbumReleases = unfilteredAlbumReleases.filter((album) => (album.uri !== unfilteredAlbumReleases[i].uri));
@@ -140,7 +139,7 @@ router.get('/get-artist-info/:artistId', function(req, res, next) {
                 let totalAlbumStreams = 0;
                 let totalSongs = 0;
     
-
+                // looping through all songs in albums and discs
                 for (let j = 0; j < discs.length; j++){
                     let totalDiscStreams = discs[j].tracks.reduce((acc, curr) => acc + curr.playcount, 0);
 
@@ -150,25 +149,31 @@ router.get('/get-artist-info/:artistId', function(req, res, next) {
 
                     for (let x = 0; x < totalSongs; x++){
                         let song = discs[j].tracks[x];
-                        let minSongEarnings = (song.playcount * .003).toLocaleString('en-US', {maximumFractionDigits:0});
-                        let maxSongEarnings = (song.playcount * .006).toLocaleString('en-US', {maximumFractionDigits:0});
-                        let abbrPlaycount = nFormatter(song.playcount, 1);
-                        let abbrMinEarnings = nFormatter(song.playcount * .003);
-                        let abbrMaxEarnings = nFormatter(song.playcount * .006);
-                        let playcount = song.playcount.toLocaleString('en-US', {maximumFractionDigits:0});
 
-                        discs[j].tracks[x].playcount = playcount;
-                        discs[j].tracks[x].abbrPlaycount = abbrPlaycount;
-                        discs[j].tracks[x].minSongEarnings = minSongEarnings;
-                        discs[j].tracks[x].maxSongEarnings = maxSongEarnings;
-                        discs[j].tracks[x].abbrMinEarnings = abbrMinEarnings;
-                        discs[j].tracks[x].abbrMaxEarnings = abbrMaxEarnings;
+                        // handling undefined songs
+                        if (song){
+                            let minSongEarnings = (song.playcount * .003).toLocaleString('en-US', {maximumFractionDigits:0});
+                            let maxSongEarnings = (song.playcount * .006).toLocaleString('en-US', {maximumFractionDigits:0});
+                            let abbrPlaycount = nFormatter(song.playcount, 1);
+                            let abbrMinEarnings = nFormatter(song.playcount * .003);
+                            let abbrMaxEarnings = nFormatter(song.playcount * .006);
+                            let playcount = song.playcount.toLocaleString('en-US', {maximumFractionDigits:0});
+    
+                            // setting data for individual songs
+                            discs[j].tracks[x].playcount = playcount;
+                            discs[j].tracks[x].abbrPlaycount = abbrPlaycount;
+                            discs[j].tracks[x].minSongEarnings = minSongEarnings;
+                            discs[j].tracks[x].maxSongEarnings = maxSongEarnings;
+                            discs[j].tracks[x].abbrMinEarnings = abbrMinEarnings;
+                            discs[j].tracks[x].abbrMaxEarnings = abbrMaxEarnings;
+                        }
                     }
                 }
                 if (totalSongs === 0){
                     missingAlbums.push(albumReleases[i].name);
                 }
 
+                // setting data for albums
                 artistData.releases.albums.releases[i].abbrTotalStreams = nFormatter(totalAlbumStreams, 1);
                 artistData.releases.albums.releases[i].totalStreams = totalAlbumStreams.toLocaleString('en-US', {maximumFractionDigits:0});
                 artistData.releases.albums.releases[i].totalMinEarnings = (totalAlbumStreams * .003).toLocaleString('en-US', {maximumFractionDigits:0});
@@ -176,8 +181,10 @@ router.get('/get-artist-info/:artistId', function(req, res, next) {
                 artistData.releases.albums.releases[i].abbrMinEarnings = nFormatter(totalAlbumStreams * .003, 1);
                 artistData.releases.albums.releases[i].abbrMaxEarnings = nFormatter(totalAlbumStreams * .006, 1);
                 artistData.releases.albums.releases[i].totalSongs = totalSongs;
+
                 totalNumberOfStreams += totalAlbumStreams;
             }
+
             artistData.releases.albums.missingAlbums = missingAlbums;
 
 
@@ -186,6 +193,7 @@ router.get('/get-artist-info/:artistId', function(req, res, next) {
             artistData.releases.albums.missingAlbums = [];
         }
 
+        // looping through all songs in albums and discs
         if (singleReleases !== undefined){
             for (let i = 0; i < singleReleases.length; i++){
                 artistData.releases.singles.releases[i].discs = artistData.releases.singles.releases[i].discs === undefined ? [] : artistData.releases.singles.releases[i].discs
@@ -201,22 +209,28 @@ router.get('/get-artist-info/:artistId', function(req, res, next) {
 
                     for (let x = 0; x < totalSongs; x++){
                         let song = discs[j].tracks[x];
-                        let minSongEarnings = (song.playcount * .003).toLocaleString('en-US', {maximumFractionDigits:0});
-                        let maxSongEarnings = (song.playcount * .006).toLocaleString('en-US', {maximumFractionDigits:0});
-                        let abbrPlaycount = nFormatter(song.playcount, 1);
-                        let abbrMinEarnings = nFormatter(song.playcount * .003);
-                        let abbrMaxEarnings = nFormatter(song.playcount * .006);
-                        let playcount = song.playcount.toLocaleString('en-US', {maximumFractionDigits:0});
 
-                        discs[j].tracks[x].playcount = playcount;
-                        discs[j].tracks[x].abbrPlaycount = abbrPlaycount;
-                        discs[j].tracks[x].minSongEarnings = minSongEarnings;
-                        discs[j].tracks[x].maxSongEarnings = maxSongEarnings;
-                        discs[j].tracks[x].abbrMinEarnings = abbrMinEarnings;
-                        discs[j].tracks[x].abbrMaxEarnings = abbrMaxEarnings;
+                        // handling undefined songs
+                        if (song){
+                            let minSongEarnings = (song.playcount * .003).toLocaleString('en-US', {maximumFractionDigits:0});
+                            let maxSongEarnings = (song.playcount * .006).toLocaleString('en-US', {maximumFractionDigits:0});
+                            let abbrPlaycount = nFormatter(song.playcount, 1);
+                            let abbrMinEarnings = nFormatter(song.playcount * .003);
+                            let abbrMaxEarnings = nFormatter(song.playcount * .006);
+                            let playcount = song.playcount.toLocaleString('en-US', {maximumFractionDigits:0});
+    
+                            // setting data for individual songs
+                            discs[j].tracks[x].playcount = playcount;
+                            discs[j].tracks[x].abbrPlaycount = abbrPlaycount;
+                            discs[j].tracks[x].minSongEarnings = minSongEarnings;
+                            discs[j].tracks[x].maxSongEarnings = maxSongEarnings;
+                            discs[j].tracks[x].abbrMinEarnings = abbrMinEarnings;
+                            discs[j].tracks[x].abbrMaxEarnings = abbrMaxEarnings;
+                        }
                     }
                 }
 
+                
                 artistData.releases.singles.releases[i].totalStreams = totalAlbumStreams;
                 artistData.releases.singles.releases[i].totalSongs = totalSongs;
 
@@ -228,14 +242,16 @@ router.get('/get-artist-info/:artistId', function(req, res, next) {
         }
 
         const minAmountOfEarnings = (totalNumberOfStreams * 0.003).toLocaleString('en-US', {maximumFractionDigits:0});
-        const maxAmountOfEarnings = (totalNumberOfStreams * 0.005).toLocaleString('en-US', {maximumFractionDigits:0});
+        const maxAmountOfEarnings = (totalNumberOfStreams * 0.006).toLocaleString('en-US', {maximumFractionDigits:0});
 
         const minAmountOfEarningsFromSingles = (totalNumberOfStreamsFromSingles * 0.003).toLocaleString('en-US', {maximumFractionDigits:0});
-        const maxAmountOfEarningsFromSingles = (totalNumberOfStreamsFromSingles * 0.005).toLocaleString('en-US', {maximumFractionDigits:0});
+        const maxAmountOfEarningsFromSingles = (totalNumberOfStreamsFromSingles * 0.006).toLocaleString('en-US', {maximumFractionDigits:0});
 
+        // setting data for total streams
         artistData.releases.minAmountOfEarnings = minAmountOfEarnings;
         artistData.releases.maxAmountOfEarnings = maxAmountOfEarnings;
 
+        // setting data for singles
         artistData.releases.singles.totalSingleStreams = totalNumberOfStreamsFromSingles.toLocaleString('en-US', {maximumFractionDigits:0});
         artistData.releases.singles.minAmountOfEarnings = minAmountOfEarningsFromSingles;
         artistData.releases.singles.maxAmountOfEarnings = maxAmountOfEarningsFromSingles;

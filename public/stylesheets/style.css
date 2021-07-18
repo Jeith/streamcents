@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Gorditas:wght@700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 html {
@@ -104,8 +105,32 @@ body.about .hero .section-wrapper .credit {
   position: absolute;
   bottom: 40px; }
   body.about .hero .section-wrapper .credit a {
-    font-size: 25px;
-    text-decoration: none; }
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    -ms-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 600;
+    color: #FC8300; }
+    body.about .hero .section-wrapper .credit a:after {
+      -webkit-transition: all 0.25s ease-in-out;
+      -moz-transition: all 0.25s ease-in-out;
+      -o-transition: all 0.25s ease-in-out;
+      -ms-transition: all 0.25s ease-in-out;
+      transition: all 0.25s ease-in-out;
+      content: "";
+      position: absolute;
+      left: 1px;
+      bottom: -2px;
+      width: 100%;
+      height: 3px;
+      background-color: #E73A2A; }
+    body.about .hero .section-wrapper .credit a:hover {
+      color: #6CCEAF; }
+      body.about .hero .section-wrapper .credit a:hover::after {
+        background-color: #718CC7; }
 body.load-page:after {
   opacity: 1; }
 body header {
@@ -125,6 +150,11 @@ body header {
     text-decoration: none;
     color: black; }
   body header h4 {
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    -ms-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
     color: black;
     font-weight: 800;
     font-size: 20px; }
@@ -229,6 +259,8 @@ body .hero {
     body .hero .section-wrapper p {
       text-align: center;
       padding-bottom: 25px; }
+      body .hero .section-wrapper p.mobile-desc {
+        display: none; }
     body .hero .section-wrapper form {
       display: -webkit-flex;
       display: flex;
@@ -434,7 +466,7 @@ body .related-artist-section {
       justify-content: flex-end;
       cursor: pointer;
       width: 30px;
-      height: 100%; }
+      height: 100px; }
       body .related-artist-section .artists-container .pager:first-of-type {
         -webkit-justify-content: flex-start;
         justify-content: flex-start; }
@@ -695,6 +727,33 @@ body .support-artist-section .merch-container {
         font-weight: 500; }
 body .designed-by-block p {
   font-size: 14px; }
+  body .designed-by-block p a {
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    -ms-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 600;
+    color: #FC8300; }
+    body .designed-by-block p a:after {
+      -webkit-transition: all 0.25s ease-in-out;
+      -moz-transition: all 0.25s ease-in-out;
+      -o-transition: all 0.25s ease-in-out;
+      -ms-transition: all 0.25s ease-in-out;
+      transition: all 0.25s ease-in-out;
+      content: "";
+      position: absolute;
+      left: 1px;
+      bottom: -2px;
+      width: 100%;
+      height: 3px;
+      background-color: #E73A2A; }
+    body .designed-by-block p a:hover {
+      color: #6CCEAF; }
+      body .designed-by-block p a:hover::after {
+        background-color: #718CC7; }
 
 .credit span a {
   text-decoration: none;
@@ -722,7 +781,7 @@ body .designed-by-block p {
   body .hero .section-wrapper {
     padding: 50px; }
     body .hero .section-wrapper h1 {
-      font-size: 50px; }
+      font-size: 47px; }
   body .tldr-section .text-container {
     width: 70%;
     padding-right: 40px; }
@@ -765,7 +824,13 @@ body .designed-by-block p {
     width: calc(30vw - 55px); }
     body .support-artist-section .merch-container .merch-item .merch-img {
       height: calc(30vw - 55px);
-      width: calc(30vw - 55px); } }
+      width: calc(30vw - 55px); }
+  body.about .hero .section-wrapper h1 {
+    font-size: 40px; }
+  body.about .hero .section-wrapper p {
+    font-size: 16px; }
+  body.about .hero .section-wrapper .credit {
+    font-size: 15px; } }
 @media all and (max-width: 900px) {
   body .tldr-section {
     -webkit-flex-direction: column;
@@ -793,12 +858,18 @@ body .designed-by-block p {
       width: 100px;
       height: 100px; }
     body .related-artist-section .artists-container .pagination-container a p {
-      font-size: 16px; } }
+      font-size: 16px; }
+  body.about .hero .section-wrapper h1 .sitename {
+    font-size: 40px; } }
 @media all and (max-width: 767px) {
   body .hero .section-wrapper .content-container {
     padding: 50px 50px 0; }
   body .hero .section-wrapper h1 {
-    font-size: 40px; }
+    font-size: 35px;
+    padding-bottom: 12px; }
+  body .hero .section-wrapper p {
+    font-size: 14px;
+    padding-bottom: 10px; }
   body #artist-info .artist-info-wrapper {
     margin: 20px; }
   body .album-section .album-container {
@@ -817,7 +888,8 @@ body .designed-by-block p {
     padding: 45px 25px; }
   body .hero .section-wrapper {
     width: 90%;
-    min-height: 95%; }
+    height: 95%;
+    min-height: 543px; }
     body .hero .section-wrapper .content-container {
       padding: 50px 25px 0; }
   body .tldr-section {
@@ -861,6 +933,26 @@ body .designed-by-block p {
         width: unset; }
         body .related-artist-section .artists-container .pagination-container.hidden {
           display: flex !important; }
+        body .related-artist-section .artists-container .pagination-container a:hover .image-container:after {
+          -webkit-transform: translate(0, -10px) scale(1.1);
+          -moz-transform: translate(0, -10px) scale(1.1);
+          -ms-transform: translate(0, -10px) scale(1.1);
+          transform: translate(0, -10px) scale(1.1); }
+        body .related-artist-section .artists-container .pagination-container a:hover .image-container.img-1:after {
+          -webkit-transform: translate(0, -10px) scale(1.1);
+          -moz-transform: translate(0, -10px) scale(1.1);
+          -ms-transform: translate(0, -10px) scale(1.1);
+          transform: translate(0, -10px) scale(1.1); }
+        body .related-artist-section .artists-container .pagination-container a:hover .image-container.img-3:after {
+          -webkit-transform: translate(0, -10px) scale(1.1);
+          -moz-transform: translate(0, -10px) scale(1.1);
+          -ms-transform: translate(0, -10px) scale(1.1);
+          transform: translate(0, -10px) scale(1.1); }
+        body .related-artist-section .artists-container .pagination-container a:hover .image-container.img-4:after {
+          -webkit-transform: translate(0, -10px) scale(1.1);
+          -moz-transform: translate(0, -10px) scale(1.1);
+          -ms-transform: translate(0, -10px) scale(1.1);
+          transform: translate(0, -10px) scale(1.1); }
         body .related-artist-section .artists-container .pagination-container a .image-container.img-1:after {
           left: 0; }
         body .related-artist-section .artists-container .pagination-container a .image-container.img-3:after {
@@ -906,15 +998,26 @@ body .designed-by-block p {
   body .tldr-section .text-container {
     padding-right: 0; }
   body #artist-info .artist-info-wrapper {
-    padding: 100px 15px 25px;
+    padding: 85px ​15px 25p;
     margin: 20px; }
   body .album-section {
-    padding-bottom: 0px; } }
+    padding-bottom: 0px; }
+  body.about .hero .section-wrapper {
+    height: unset; }
+    body.about .hero .section-wrapper h1 {
+      font-size: 26px; }
+      body.about .hero .section-wrapper h1 .sitename {
+        font-size: 27px; }
+    body.about .hero .section-wrapper p {
+      font-size: 14px; } }
 @media all and (max-width: 400px) {
-  body header h4 {
-    font-size: 16px; }
-  body header a {
-    font-size: 14px; }
+  body header {
+    position: relative;
+    padding: 0 0 25px; }
+    body header h4 {
+      font-size: 16px; }
+    body header a {
+      font-size: 14px; }
   body .album-summary .song-container {
     font-size: 12px; }
     body .album-summary .song-container .full-numbers {
@@ -927,24 +1030,46 @@ body .designed-by-block p {
       -moz-flex-direction: column;
       -ms-flex-direction: column;
       flex-direction: column; }
-  body .hero .section-wrapper .content-container {
-    padding: 15px 15px 0; }
-  body .hero .section-wrapper h1 {
-    font-size: 29px;
-    padding-bottom: 5px; }
-  body .hero .section-wrapper p {
-    padding-bottom: 10px;
-    font-size: 14px; }
-  body .hero .section-wrapper form input {
-    border-radius: 9px 0 0 9px; }
-  body .hero .section-wrapper form button {
-    border-radius: 0 9px 9px 0; }
-  body .tldr-section .text-container h1 {
-    font-size: 29px; }
-  body .tldr-section .text-container p {
-    font-size: 19px; }
-    body .tldr-section .text-container p.disclaimer {
-      font-size: 9px; }
+  body .hero.autocomplete-view .section-wrapper .content-container {
+    top: unset; }
+    body .hero.autocomplete-view .section-wrapper .content-container .autocomplete-container {
+      height: unset; }
+  body .hero.autocomplete-view .section-wrapper header {
+    display: none; }
+  body .hero .section-wrapper {
+    padding: 33px 23px 50px;
+    height: unset;
+    min-height: unset; }
+    body .hero .section-wrapper .content-container {
+      position: relative;
+      top: unset;
+      padding: 0; }
+    body .hero .section-wrapper h1 {
+      font-size: 21px;
+      padding-bottom: 8px; }
+    body .hero .section-wrapper p {
+      padding-bottom: 10px;
+      font-size: 13px; }
+      body .hero .section-wrapper p.desc {
+        display: none; }
+      body .hero .section-wrapper p.mobile-desc {
+        display: block; }
+    body .hero .section-wrapper form input {
+      font-size: 12px;
+      border-radius: 9px 0 0 9px; }
+    body .hero .section-wrapper form button {
+      border-radius: 0 9px 9px 0; }
+  body .tldr-section {
+    padding: 25px 0; }
+    body .tldr-section .text-container h1 {
+      font-size: 29px; }
+    body .tldr-section .text-container p {
+      font-size: 19px; }
+      body .tldr-section .text-container p.disclaimer {
+        font-size: 9px; }
+  body #artist-info .artist-info-wrapper header {
+    position: absolute;
+    padding: 45px 25px; }
   body .album-section h2 {
     font-size: 29px; }
   body .related-artist-section {
@@ -968,6 +1093,17 @@ body .designed-by-block p {
     padding-bottom: 10px; }
   body .support-artist-section p {
     font-size: 12px;
-    padding-bottom: 25px; } }
+    padding-bottom: 25px; }
+  body.about .hero .section-wrapper {
+    height: unset; }
+    body.about .hero .section-wrapper h1 .sitename {
+      font-size: 26px; }
+    body.about .hero .section-wrapper .credit {
+      font-size: 12px; }
+      body.about .hero .section-wrapper .credit a {
+        font-size: 16px; }
+
+  .designed-by-block p {
+    font-size: 14px; } }
 
 /*# sourceMappingURL=style.css.map */

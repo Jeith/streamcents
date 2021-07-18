@@ -1,8 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Gorditas:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 // ~~~~~~~~~~~~~~~~ VARS ~~~~~~~~~~~~~~~~
-$light-blue: #0152e0;
-$dark-blue: #F2EBD5;
+$dark-blue: #0152e0;
 
 html { font-family: "Inter", "system-ui"; }
  
@@ -185,7 +184,7 @@ body{
   &:after{
     content: "";
     @include transition(all .5s ease-in-out);
-    background: $light-blue;
+    background: $dark-blue;
     width: 100vw;
     height: 100%;
     position: absolute;
@@ -193,10 +192,6 @@ body{
     left: 0;
     opacity: 0;
     pointer-events: none;
-  }
-
-  &.home{
-
   }
   &.about {
     .hero{
@@ -219,17 +214,33 @@ body{
           bottom: 40px;
 
           a{
-            // make rainbow colors
-            font-size: 25px;
+            @include transition(all .25s ease-in-out);
             text-decoration: none;
-            // font-family: 'Gorditas';
+            font-size: 20px;
+            font-weight: 600;
+            color: #FC8300;
+
+            &:after{
+              @include transition(all .25s ease-in-out);
+              content: "";
+              position: absolute;
+              left: 1px;
+              bottom: -2px;
+              width: 100%;
+              height: 3px;
+              background-color: #E73A2A;
+            }
+
+            &:hover{
+              color: #6CCEAF;
+              &::after{
+                background-color: #718CC7;
+              }
+            }
           }
         }
       }
     }
-  }
-  &.artist-details{
-
   }
   &.load-page{
     &:after{
@@ -251,16 +262,17 @@ body{
       color: black;
     }
     h4{
+      @include transition(all .25s ease-in-out);
       color: black;
       font-weight: 800;
       font-size: 20px;
 
       &:hover{
-        color: $light-blue;
+        color: $dark-blue;
       }
     }
     a{
-      color: $light-blue;
+      color: $dark-blue;
 
       &:hover{
         text-decoration: underline;
@@ -352,6 +364,10 @@ body{
       p{
         text-align: center;
         padding-bottom: 25px;
+
+        &.mobile-desc{
+          display: none;
+        }
       }
       form{
         @include display-flex;
@@ -532,9 +548,6 @@ body{
   .related-artist-section{
     padding-bottom: 120px;
 
-    h2{
-      
-    }
     .artists-container{
       @include display-flex;
       @include align-items(center);
@@ -547,14 +560,10 @@ body{
         @include justify-content(flex-end);
         cursor: pointer;
         width: 30px;
-        height: 100%;
-
+        height: 100px;
+        
         &:first-of-type{
           @include justify-content(flex-start);
-        }
-
-        i{
-
         }
       }
       .pagination-container{
@@ -840,24 +849,6 @@ body{
   }
   .singles-section{
     padding-bottom: 75px;
-    h2{
-      
-    }
-    .singles-info{
-      .single-container{
-        .img-text-container{
-          img{
-
-          }
-          p{
-
-          }
-        }
-        span{
-
-        }
-      }
-    }
   }
   .support-artist-section{
     h2{
@@ -909,6 +900,32 @@ body{
   .designed-by-block{
     p{
       font-size: 14px;
+
+      a{
+        @include transition(all .25s ease-in-out);
+        text-decoration: none;
+        font-size: 20px;
+        font-weight: 600;
+        color: #FC8300;
+
+        &:after{
+          @include transition(all .25s ease-in-out);
+          content: "";
+          position: absolute;
+          left: 1px;
+          bottom: -2px;
+          width: 100%;
+          height: 3px;
+          background-color: #E73A2A;
+        }
+
+        &:hover{
+          color: #6CCEAF;
+          &::after{
+            background-color: #718CC7;
+          }
+        }
+      }
     }
   }
 }
@@ -925,12 +942,7 @@ body{
 @media all and (max-width: 1320px) {
   body{
     .related-artist-section{
-  
-      h2{
-        
-      }
       .artists-container{
-  
         .pager{
           &#page-forward{
             right: -25px;
@@ -969,67 +981,13 @@ body{
 }
 @media all and (max-width: 1139px) {
   body{
-    .hero{
-      .section-wrapper{
-  
-        .content-container{
-        }
-        p{
-        }
-        form{
-  
-          input{
-          }
-          button{
-          }
-        }
-        .autocomplete-container{
-  
-          a{
-          }
-        }
-      }
-    }
     .related-artist-section{
-  
-      h2{
-        
-      }
       .artists-container{
-  
-        .pager{
-        }
         .pagination-container{
-  
           a{
-
             .image-container{
               width: 125px;
               height: 125px;
-  
-              &.img-1{
-                &:after{
-                }
-              }
-              &.img-2{
-                &:after{
-                }
-              }
-              &.img-3{
-                &:after{
-                }
-              }
-              &.img-4{
-                &:after{
-                }
-              }
-  
-              &:after{
-              }
-            }
-            .related-artist-image{
-            }
-            p{
             }
           }
         }
@@ -1042,31 +1000,13 @@ body{
     .hero{
       .section-wrapper{
         padding: 50px;
-
-        .content-container{
-        }
   
         h1{
-          font-size: 50px;
-        }
-        p{
-        }
-        form{
-  
-          input{
-          }
-          button{
-          }
-        }
-        .autocomplete-container{
-  
-          a{
-          }
+          font-size: 47px;
         }
       }
     }
     .tldr-section{
-  
       .text-container{
         width: 70%;
         padding-right: 40px;
@@ -1079,27 +1019,15 @@ body{
         }
         p{
           font-size: 40px;
-  
-          &.disclaimer{
-          }
         }
       }
       .img-container{  
         &.multiple-imgs{
           cursor: pointer;
         }
-        
-        &:before{
-        }
-  
-        img{
-        }
       }
     }
     .album-section{
-      
-      h2{
-      }
       .album-container{
         @include flex-direction(column);
         @include align-items(center);
@@ -1130,62 +1058,39 @@ body{
       }
     }
     .related-artist-section{
-  
-      h2{
-        
-      }
       .artists-container{
-  
-        .pager{
-        }
         .pagination-container{
-  
           a{
-
             .image-container{
               width: 125px;
               height: 125px;
-  
-              &.img-1{
-                &:after{
-                }
-              }
-              &.img-2{
-                &:after{
-                }
-              }
-              &.img-3{
-                &:after{
-                }
-              }
-              &.img-4{
-                &:after{
-                }
-              }
-  
-              &:after{
-              }
-            }
-            .related-artist-image{
-            }
-            p{
             }
           }
         }
       }
     }
     .support-artist-section{
-      h2{
-      }
-      p{
-      }
       .merch-container{
-  
         .merch-item{
           width: calc(30vw - 55px);
           .merch-img{
             height: calc(30vw - 55px);
             width: calc(30vw - 55px);
+          }
+        }
+      }
+    }
+    &.about {
+      .hero{
+        .section-wrapper{
+          h1{
+            font-size: 40px;
+          }
+          p{
+            font-size: 16px;
+          }
+          .credit{
+            font-size: 15px;
           }
         }
       }
@@ -1201,99 +1106,55 @@ body{
       
       .text-container{
         width: 100%;
-        h1{
-        }
-        p{
-  
-          &.disclaimer{
-          }
-        }
       }
       .img-container{  
         display: none;
         &.multiple-imgs{
           cursor: pointer;
         }
-        
-        &:before{
-        }
-  
+
         img{
         }
       }
     }
     .hero{
       .section-wrapper{
-  
-        .content-container{
-        }
-  
         h1{
           font-size: 40px;
         }
-        p{
-        }
         form{
           min-width: 100%;
-          input{
-          }
-          button{
-          }
-        }
-        .autocomplete-container{
-  
-          a{
-          }
         }
       }
     }
     #artist-info{
-      
       .artist-info-wrapper{
         padding: 100px 50px 25px;
       }
     }
     .related-artist-section{
-  
-      h2{
-        
-      }
       .artists-container{
         left: -5px;
 
-        .pager{
-        }
         .pagination-container{
-  
           a{
             .image-container{
               width: 100px;
               height: 100px;
-  
-              &.img-1{
-                &:after{
-                }
-              }
-              &.img-2{
-                &:after{
-                }
-              }
-              &.img-3{
-                &:after{
-                }
-              }
-              &.img-4{
-                &:after{
-                }
-              }
-  
-              &:after{
-              }
-            }
-            .related-artist-image{
             }
             p{
               font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+    &.about {
+      .hero{
+        .section-wrapper{
+          h1{
+            .sitename{
+              font-size: 40px;
             }
           }
         }
@@ -1305,38 +1166,26 @@ body{
   body{
     .hero{
       .section-wrapper{
-  
         .content-container{
           padding: 50px 50px 0;
         }
   
         h1{
-          font-size: 40px;
+          font-size: 35px;
+          padding-bottom: 12px;
         }
         p{
-        }
-        form{
-          input{
-          }
-          button{
-          }
-        }
-        .autocomplete-container{
-  
-          a{
-          }
+          font-size: 14px;
+          padding-bottom: 10px;
         }
       }
     }
     #artist-info{
-      
       .artist-info-wrapper{
         margin: 20px;
       }
     }
     .album-section{
-      h2{
-      }
       .album-container{
         padding-bottom: 10px;
 
@@ -1353,8 +1202,6 @@ body{
             width: calc(100vw - 140px);
           }
         }
-        .album-summary{
-        }
       }
     }
   }
@@ -1367,25 +1214,10 @@ body{
     .hero{
       .section-wrapper{
         width: 90%;
-        min-height: 95%;
+        height: 95%;
+        min-height: 543px;
         .content-container{
           padding: 50px 25px 0;
-        }
-  
-        h1{
-        }
-        p{
-        }
-        form{
-          input{
-          }
-          button{
-          }
-        }
-        .autocomplete-container{
-  
-          a{
-          }
         }
       }
     }
@@ -1403,16 +1235,8 @@ body{
           text-align: center;
         }
       }
-      .img-container{
-        &:before{
-        }
-  
-        img{
-        }
-      }
     }
     #artist-info{
-      
       .artist-info-wrapper{
         padding: 100px 25px 25px;
       }
@@ -1422,20 +1246,11 @@ body{
         padding-bottom: 45px;
       }
       .album-container{
-
-        .img-container{
-  
-          &:before{
-          }
-          img{
-          }
-        }
         .album-summary{
           .album-name{
             h4{
               font-size: 20px;
             }
-
           }
           .song-name{
             p{
@@ -1476,8 +1291,29 @@ body{
             display: flex !important;
           }
           a{
+            &:hover{
+              .image-container{
+                &:after{
+                  @include transform(translate(0, -10px) scale(1.1));
+                }
+                &.img-1{
+                  &:after{
+                    @include transform(translate(0, -10px) scale(1.1));
+                  }
+                }
+                &.img-3{
+                  &:after{
+                    @include transform(translate(0, -10px) scale(1.1));
+                  }
+                }
+                &.img-4{
+                  &:after{
+                    @include transform(translate(0, -10px) scale(1.1));
+                  }
+                }
+              }
+            }
             .image-container{
-  
               &.img-1{
                 &:after{
                   left: 0;
@@ -1502,8 +1338,6 @@ body{
                 left: 0;
               }
             }
-            .related-artist-image{
-            }
             p{
               font-size: 16px;
             }
@@ -1517,10 +1351,6 @@ body{
       }
     }
     .support-artist-section{
-      h2{
-      }
-      p{
-      }
       .merch-container{
         @include flex-direction(column);
         @include align-items(center);
@@ -1540,8 +1370,6 @@ body{
 }
 @media all and (max-width: 500px) {
   body{
-    header{
-    }
     .album-summary {
       .song-container{
         font-size: 14px;
@@ -1557,122 +1385,42 @@ body{
     .hero{
       .section-wrapper{
         padding: 23px;
-        .content-container{
-        }
-  
+
         h1{
           font-size: 33px;
           padding-bottom: 15px;
         }
-        p{
-        }
-        form{
-          input{
-          }
-          button{
-          }
-        }
         .autocomplete-container{
           max-width: unset;
-          a{
-          }
         }
       }
     }
     .tldr-section{
       .text-container{
         padding-right: 0;
-
-        h1{
-        }
-        p{
-        }
-      }
-      .img-container{
-        &:before{
-        }
-  
-        img{
-        }
       }
     }
     #artist-info{
-      
       .artist-info-wrapper{
-        padding: 100px 15px 25px;
+        padding: 85px ​15px 25p;
         margin: 20px;
       }
     }
     .album-section{
       padding-bottom: 0px;
-
-      h2{
-      }
-      .album-container{
-
-        .img-container{
-  
-          &:before{
-          }
-          img{
-          }
-        }
-        .album-summary{
-          .album-name{
-            h4{
-            }
-
-          }
-          .song-name{
-            p{
-            }
-            span{
-            }
-          }
-        }
-      }
     }
-    .related-artist-section{
-
-      h2{
-      }
-      .artists-container{
-        &::-webkit-scrollbar {
-        }
-
-        .pager{
-        }
-        .pagination-container{
-
-          &.hidden{
+    &.about {
+      .hero{
+        .section-wrapper{
+          height: unset;
+          h1{
+            font-size: 26px;
+            .sitename{
+              font-size: 27px;
+            }
           }
-          a{
-            .image-container{
-  
-              &.img-1{
-                &:after{
-                }
-              }
-              &.img-2{
-                &:after{
-                }
-              }
-              &.img-3{
-                &:after{
-                }
-              }
-              &.img-4{
-                &:after{
-                }
-              }
-  
-              &:after{
-              }
-            }
-            .related-artist-image{
-            }
-            p{
-            }
+          p{
+            font-size: 14px;
           }
         }
       }
@@ -1682,6 +1430,9 @@ body{
 @media all and (max-width: 400px){
   body{
     header{
+      position: relative;
+      padding: 0 0 25px;
+
       h4{
         font-size: 16px;
       }
@@ -1699,42 +1450,61 @@ body{
           @include flex-direction(column);
         }
       }
-      span{
-        .amt-of-streams{
-        }
-      }
     }
     .hero{
+      &.autocomplete-view{
+        .section-wrapper{
+          .content-container{
+            top: unset;
+
+            .autocomplete-container{
+              height: unset;
+            }
+          }
+          header{
+            display: none;
+          }
+        }
+      }
       .section-wrapper{
+        padding: 33px 23px 50px;
+        height: unset;
+        min-height: unset;
         .content-container{
-          padding: 15px 15px 0;
+          position: relative;
+          top: unset;
+          padding: 0;
         }
   
         h1{
-          font-size: 29px;
-          padding-bottom: 5px;
+          font-size: 21px;
+          padding-bottom: 8px;
         }
         p{
           padding-bottom: 10px;
-          font-size: 14px;
+          font-size: 13px;
+
+          &.desc{
+            display: none;
+          }
+          &.mobile-desc{
+            display: block;
+          }
         }
         form{
           input{
+            font-size: 12px;
             border-radius: 9px 0 0 9px;
           }
           button{
             border-radius: 0 9px 9px 0;
           }
         }
-        .autocomplete-container{
-          a{
-          }
-        }
       }
     }
     .tldr-section{
+      padding: 25px 0;
       .text-container{
-
         h1{
           font-size: 29px;
         }
@@ -1746,87 +1516,35 @@ body{
           }
         }
       }
-      .img-container{
-        &:before{
-        }
-  
-        img{
-        }
-      }
     }
     #artist-info{
-      
       .artist-info-wrapper{
+        header{
+          position: absolute;
+          padding: 45px 25px;
+        }
       }
     }
     .album-section{
-
       h2{
         font-size: 29px;
-      }
-      .album-container{
-
-        .img-container{
-  
-          &:before{
-          }
-          img{
-          }
-        }
-        .album-summary{
-          .album-name{
-            h4{
-            }
-
-          }
-          .song-name{
-            p{
-            }
-            span{
-            }
-          }
-        }
       }
     }
     .related-artist-section{
       padding-bottom: 15px;
+
       h2{
         font-size: 29px;
       }
       .artists-container{
         @include align-items(flex-start);
 
-        .pager{
-        }
         .pagination-container{
-
-          &.hidden{
-          }
           a{
             padding-top: 20px;
             .image-container{
               width: 85px;
               height: 85px;
-
-              &.img-1{
-                &:after{
-                }
-              }
-              &.img-2{
-                &:after{
-                }
-              }
-              &.img-3{
-                &:after{
-                }
-              }
-              &.img-4{
-                &:after{
-                }
-              }
-  
-              &:after{
-              }
             }
             .related-artist-image{
             }
@@ -1846,6 +1564,29 @@ body{
         font-size: 12px;
         padding-bottom: 25px;
       }
+    }
+    &.about {
+      .hero{
+        .section-wrapper{
+          height: unset;
+          h1{
+            .sitename{
+              font-size: 26px;
+            }
+          }
+          .credit{
+            font-size: 12px;
+            a{
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .designed-by-block{
+    p{
+      font-size: 14px;
     }
   }
 }
