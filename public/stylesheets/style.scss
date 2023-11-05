@@ -1,6 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Gorditas:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 // ~~~~~~~~~~~~~~~~ VARS ~~~~~~~~~~~~~~~~
+$rainbow: (
+    "0": #ff2400,
+    "1": #e81d1d,
+    "2": #e8b71d,
+    "3": #e3e81d,
+    "4": #1de840,
+    "5": #1ddde8,
+    "6": #2b1de8,
+    "7": #dd00f3,
+    "8": #dd00f3,
+    "9": #E55937,
+);
 $dark-blue: #0152e0;
 
 html { font-family: "Inter", "system-ui"; }
@@ -314,7 +326,8 @@ body{
     @include align-items(center);
     @include transition(all .25s ease-in-out);
     z-index: 5;
-    min-height: 100vh;
+    height: 100vh;
+    min-height: 600px;
     min-width: 100vw;
 
     &.autocomplete-view{
@@ -338,9 +351,9 @@ body{
       background-color: white;
       overflow: hidden;
       width: 85%;
-      min-height: 90%;
+      height: 90%;
+      min-height: 500px;
       padding: 75px 75px 50px 75px;
-      margin: 50px;
       border-radius: 25px;
       position: absolute;
 
@@ -807,6 +820,24 @@ body{
       border-bottom: 1px solid #ddd;
       color: #333;
 
+      .track{
+        @include display-flex;
+
+        .track-number{
+          width: 25px;
+          text-align: right;
+
+          // @each $color, $i in $rainbow {
+          //   &.track-#{$i} {
+          //     background-color: $color;
+          //   }	
+          // }
+        }
+        .track-name{
+          padding-left: 5px;
+        }
+      }
+
       &.total{
         padding-top: 5px;
       }
@@ -1270,12 +1301,13 @@ body{
         padding: 5px;
       }
       .artists-container{
-        left: 0;
         overflow: auto;
         height: 185px;
         -ms-overflow-style: none;  /* IE and Edge */
         scrollbar-width: none;  /* Firefox */
         overflow-y: hidden;
+        width: calc(100% + 50px);
+        left: -25px;
 
         &::-webkit-scrollbar {
           display: none;
@@ -1286,6 +1318,7 @@ body{
         }
         .pagination-container{
           width: unset;
+          padding-left: 20px;
 
           &.hidden{
             display: flex !important;

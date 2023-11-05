@@ -85,7 +85,7 @@
 									<% for (let j = 0; j < data.releases.albums.releases[i].discs.length; j++){ %>
 										<% for (let x = 0; x < data.releases.albums.releases[i].discs[j].tracks.length; x++){ %>
 											<div class="song-container">
-												<p><%= data.releases.albums.releases[i].discs[j].tracks[x].name %></p>
+												<span class="track"><p class="track-number track-<%= x %>"><%= x + 1 %>.</p><p class="track-name"><%= data.releases.albums.releases[i].discs[j].tracks[x].name %></p></span>
 												<span class="full-numbers">$<%= data.releases.albums.releases[i].discs[j].tracks[x].minSongEarnings %> - $<%= data.releases.albums.releases[i].discs[j].tracks[x].maxSongEarnings %> <span class="amt-of-streams">(<%= data.releases.albums.releases[i].discs[j].tracks[x].playcount %> streams)</span></span>
 												<span class="abbr-numbers">$<%= data.releases.albums.releases[i].discs[j].tracks[x].abbrMinEarnings %> - $<%= data.releases.albums.releases[i].discs[j].tracks[x].abbrMaxEarnings %> <span class="amt-of-streams">(<%= data.releases.albums.releases[i].discs[j].tracks[x].abbrPlaycount %> streams)</span></span>
 											</div>
@@ -159,7 +159,7 @@
 				</section>
 			<% } %>
 			<div class="designed-by-block">
-				<p>Designed & Developed by <a href="https://jeith.com/" target="_blank">Jeith</a></p>
+				<p>designed & developed by <a href="https://portfolio.jeith.com/" target="_blank">Jeith</a></p>
 			</div>
 		</div>
 	</div>

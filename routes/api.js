@@ -99,6 +99,8 @@ router.get('/get-artist/:artistId', function(req, res, next) {
 router.get('/get-artist-info/:artistId', function(req, res, next) {
     let artistId = req.params.artistId;
 
+    console.log(`https://api.t4ils.dev/artistInfo?artistid=${artistId}`)
+
     // calling t4ils' librespot playout API - thanks t4ils.dev :)
     axios.get(`https://api.t4ils.dev/artistInfo?artistid=${artistId}`)
     .then((response) => {
